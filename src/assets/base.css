@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.Vue-Toastification__toast {
+  border-radius: 5px !important;
+  min-width: 240px !important;
+}
+.Vue-Toastification__toast-body {
+  font-size: 14px !important;
+}
