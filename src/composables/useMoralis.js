@@ -2,10 +2,12 @@ import Moralis from 'moralis'
 import { computed, ref, reactive } from 'vue'
 import { useToast } from 'vue-toastification'
 import { createSharedComposable } from '@vueuse/core'
+import { useUtils } from '@/composables/useUtils'
 
 export const useMoralis = createSharedComposable(() => {
 
     const toast = useToast()
+    const { fixURL } = useUtils()
 
     const user = reactive({
         address: null,
@@ -15,12 +17,12 @@ export const useMoralis = createSharedComposable(() => {
         chain: null,
         username: computed(() => user.ensName || sliceAddress(user.address)),
         isNetwork: computed(() => import.meta.env.VITE_NETWORK_ID === user.chain),
-        ownedBalance: computed(() => ownedNFT.value ? (ownedNFT.value).length : 0)
+        ownedBalance: computed(() => ownedNFT.value.length)
     })
 
-    const ownedNFT = ref(null)
+    let ownedNFT = ref([])
 
-    const isAuthenticated = computed(() => Boolean(user.address))
+    const isAuthenticated = computed(() => user.address)
     const provider = computed(() => window.ethereum || null)
     const isMetaMaskInstalled = computed(() => Boolean(provider.value))
 
@@ -28,16 +30,18 @@ export const useMoralis = createSharedComposable(() => {
 
     const handleUser = async (_address) => {
         try {
+            const isWeb3 = Moralis.isWeb3Enabled()
+            if (isWeb3) await Moralis.deactivateWeb3()
+            if (user.address) resetUser()
             const ethers = await Moralis.enableWeb3()
             user.address = _address
             user.balance = await ethers.getBalance(_address).then(res => parseFloat(Moralis.Units.FromWei(res)))
             user.ensName = await ethers.lookupAddress(_address)
             user.ensAvatar = await ethers.getAvatar(_address)
-            await getUserNFT(_address).then(res => ownedNFT.value = res.result)
+            await getUserNFT(_address).then(res => res.result.map(x => ownedNFT.value.push(JSON.parse(x.metadata))))
+                .finally(() => ownedNFT.value.map(x => x.image = fixURL(x.image)))
         } catch (error) {
             console.log(error)
-        } finally {
-            await Moralis.deactivateWeb3()
         }
     }
 
@@ -55,8 +59,7 @@ export const useMoralis = createSharedComposable(() => {
         user.balance = null
         user.ensName = null
         user.ensAvatar = null
-        ownedNFT.value = null
-        toast.success('Disconnected')
+        ownedNFT.value = []
     }
 
     const connect = async (provider) => {
@@ -74,11 +77,11 @@ export const useMoralis = createSharedComposable(() => {
     
     const setChain = (_chain) => user.chain = _chain
 
-    const disconnect = async () => await Moralis.User.logOut().then(() => resetUser())
+    const disconnect = async () => await Moralis.User.logOut().then(() => resetUser()).finally(() => toast.success('Disconnected'))
 
-    const getUserNFT = async (address) => await Moralis.Web3API.account.getNFTsForContract({ chain: 'eth', address, token_address: import.meta.env.VITE_CONTRACT_ADDRESS })
+    const getUserNFT = async (_address) => await Moralis.Web3API.account.getNFTsForContract({ chain: '0x1', address: _address, token_address: import.meta.env.VITE_CONTRACT_ADDRESS })
 
-    const sliceAddress = (_address, chars = 5) => _address ? `${_address.slice(0, chars)}...${_address.slice(-chars)}` : null
+    const sliceAddress = (_address, chars = 5) => _address ? `${_address.slice(0, chars)}...${_address.slice(-chars+2)}` : null
 
     return {
         setChain,
@@ -90,6 +93,7 @@ export const useMoralis = createSharedComposable(() => {
         getConnectedUser,
         user,
         ownedNFT,
-        sliceAddress
+        sliceAddress,
+        handleUser
     }
 })

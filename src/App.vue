@@ -1,11 +1,11 @@
 <script setup>
-import { onMounted, unref } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { useToast } from 'vue-toastification'
 import { useMoralis } from '@/composables/useMoralis.js'
 
 const toast = useToast()
-const { connect, disconnect, isAuthenticated, getConnectedUser, isMetaMaskInstalled, detectChain, user, ownedNFT } = useMoralis()
+const { connect, disconnect, isAuthenticated, getConnectedUser, isMetaMaskInstalled, detectChain, user, ownedNFT, handleUser, setChain } = useMoralis()
 
 onMounted(() => {
   if (isMetaMaskInstalled.value) {
@@ -14,8 +14,17 @@ onMounted(() => {
         if (user.isNetwork) getConnectedUser()
       }
     )
+    window.ethereum.on('accountsChanged', (accounts) => {
+      const currentUser = Moralis.User.current()
+      if (currentUser && user.isNetwork) handleUser(accounts[0])
+    })
+    window.ethereum.on('chainChanged', (chain) => {
+      const currentUser = Moralis.User.current()
+      if (currentUser) setChain(chain)
+    })
   }
 })
+
 </script>
 
 <template>
@@ -27,10 +36,19 @@ onMounted(() => {
     <div class="text-center mt-10" @click="connect">
       Metamask: {{ isMetaMaskInstalled }}
     </div>
-    <div>
-      {{ user }}
+    <div class="fixed top-4 left-4 flex">
+      <div class="text-left">
+        <div v-for="(item, key) in user" :key="key">
+          {{ key }}
+        </div>
+      </div>
+      <div class="text-right">
+        <div v-for="(item, key) in user" :key="key">
+          {{ item ? item : 'none' }}
+        </div>
+      </div>
     </div>
-    <div>
+    <div class="mt-4">
       <button v-if="isAuthenticated" @click="disconnect" class="bg-black text-white p-2 rounded-lg">Log out</button>
       <button v-if="!isAuthenticated" @click="connect('metamask')" class="bg-black text-white p-2 rounded-lg">Connect</button>
     </div>
