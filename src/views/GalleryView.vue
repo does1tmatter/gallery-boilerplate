@@ -30,13 +30,13 @@ onMounted(() => {
         <div v-for="(item, i) in data" :key="i" class="mt-8">
             <div class="uppercase">
                 {{ getTokenId(item.name) }}
-                <img :src="fixURL(item.image)" :alt="item.name" class="w-14 inline rounded-full ml-4">
+                <img :src="fixURL(item.image)" :alt="item.name" class="w-14 inline rounded-xl ml-4">
                 <a :href="`https://opensea.io/assets/${contract}/${getTokenId(item.name)}`" target="_blank" class="underline ml-4">{{ item.name }}</a>
             </div>
-            <div class="flex gap-10 justify-center text-[12px] mt-4">
-                <div v-for="(trait, i) in item.attributes" class="uppercase">
-                    {{ trait.trait_type }}<br>
-                    {{ trait.value }}
+            <div class="flex gap-10 justify-center mt-4">
+                <div v-for="(trait, i) in item.attributes" class="uppercase leading-none">
+                    <span class="tracking-tighter">{{ trait.trait_type }}</span> <br>
+                    <span class="text-[10px]">{{ trait.value }}</span>
                 </div>
             </div>
         </div>

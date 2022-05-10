@@ -62,7 +62,7 @@ onUnmounted(() => {
 
 <template>
   <header class="text-center">
-    <div class="flex gap-4 justify-center mt-10">
+    <div class="flex gap-4 justify-center mt-10 uppercase tracking-tighter">
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/gallery">Gallery</RouterLink>
     </div>
@@ -84,7 +84,7 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
-    <div class="mt-4">
+    <div class="mt-24">
       <button v-if="!isAuthenticated" :disabled="userLoading" @click="connectUser" class="bg-black text-white p-2 rounded-lg disabled:opacity-20">{{ userLoading ? 'Loading' : 'Connect' }}</button>
     </div>
   </header>
