@@ -11,7 +11,7 @@ const { getTokenId } = useUtils()
     <div class="text-center mt-24">
         <div v-if="isAuthenticated">
             <div class="text-5xl uppercase tracking-tighter leading-none font-thin">My muertos</div>
-            <div class="flex justify-center gap-6 mt-16 leading-none uppercase">
+            <div class="flex flex-wrap justify-center gap-6 mt-16 leading-none uppercase">
                 <div v-for="(nft, i) in ownedTokens" :key="i">
                     <a :href="`https://opensea.io/assets/${contract}/${getTokenId(nft.name)}`" target="_blank">
                         <img :src="nft.image" :alt="nft.name" class="w-[150px] mx-auto rounded-xl">
