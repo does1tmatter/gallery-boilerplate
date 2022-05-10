@@ -1,16 +1,19 @@
 <script setup>
-import { useMoralis } from '@/composables/useMoralis.js'
+import { useUser } from '@/composables/'
 
-const { ownedNFT } = useMoralis()
+const { ownedTokens, isAuthenticated, userLoading } = useUser()
 </script>
 
 <template>
     <div class="text-center mt-20">
-        <div v-if="ownedNFT" class="mt-4">
+        <div v-if="isAuthenticated" class="mt-4">
+            <div v-if="userLoading">
+                Loading
+            </div>
             <div class="flex justify-center gap-4 mt-4">
-                <div v-for="(nft, i) in ownedNFT" :key="i">
+                <div v-for="(nft, i) in ownedTokens" :key="i">
                     {{ nft.name }}
-                    <img :src="nft.image" :alt="nft.name" class="w-[150px] mx-auto">
+                    <img :src="nft.image" :alt="nft.name" class="w-[150px] mx-auto rounded-full">
                     <div v-for="(trait, ind) in nft.attributes" :key="ind" class="mt-2">
                         {{ trait.trait_type }}<br>
                         {{ trait.value }}

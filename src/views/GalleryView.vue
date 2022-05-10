@@ -1,10 +1,10 @@
 <script setup>
-import { useUtils } from '@/composables/useUtils.js'
+import { useUtils } from '@/composables/'
 import { onMounted, ref } from 'vue'
 import { useInfiniteScroll } from '@vueuse/core'
 import meta from '@/assets/meta.json'
 
-const { paginate } = useUtils()
+const { paginate, fixURL } = useUtils()
 
 const el = ref(window)
 const data = ref([])
@@ -21,15 +21,24 @@ useInfiniteScroll(el, () => {
 
 onMounted(() => {
     handleData()
-    console.log(data.value)
 })
 </script>
 
 <template>
     <div class="text-center mt-20">
-        <div v-for="(item, i) in data" :key="i" class="mt-4">
-            {{ item.name }}<br>
-            <span v-for="(trait, i) in item.attributes" class="ml-4">{{ trait.value }}</span>
+        <div v-for="(item, i) in data" :key="i" class="mt-8">
+            <div>
+                <img :src="fixURL(item.image)" :alt="item.name" class="w-14 inline rounded-full">
+                {{ item.name }}
+            </div>
+            <div class="flex gap-10 justify-center">
+                <div v-for="(trait, i) in item.attributes" class="uppercase">
+                    <div>
+                        {{ trait.trait_type }}<br>
+                        {{ trait.value }}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
