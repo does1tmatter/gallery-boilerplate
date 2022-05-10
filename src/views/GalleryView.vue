@@ -28,8 +28,8 @@ onMounted(() => {
 <template>
     <div class="text-center mt-20">
         <div v-for="(item, i) in data" :key="i" class="mt-8">
-            <div class="uppercase">
-                {{ getTokenId(item.name) }}
+            <div class="uppercase tracking-tighter">
+                Token: {{ getTokenId(item.name) }}
                 <img :src="fixURL(item.image)" :alt="item.name" class="w-14 inline rounded-xl ml-4">
                 <a :href="`https://opensea.io/assets/${contract}/${getTokenId(item.name)}`" target="_blank" class="underline ml-4">{{ item.name }}</a>
             </div>
