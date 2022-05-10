@@ -66,18 +66,21 @@ onUnmounted(() => {
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/gallery">Gallery</RouterLink>
     </div>
-    <div class="text-center mt-10">
-      Metamask: {{ isMetaMaskInstalled }}
-    </div>
     <div class="fixed top-4 left-4 flex uppercase text-[10px]">
       <div class="text-left">
         <div v-for="(item, key) in user" :key="key">
           {{ key }}
         </div>
+        <div>
+          Metamask
+        </div>
       </div>
       <div class="text-right">
         <div v-for="(item, key) in user" :key="key">
           {{ item ? item.length === 42 ? sliceAddress(item) : item : 'none' }}
+        </div>
+        <div>
+          {{ isMetaMaskInstalled }}
         </div>
       </div>
     </div>
