@@ -7,7 +7,7 @@ import { useWallet, useUser, useUtils } from '@/composables/'
 const toast = useToast()
 const { connectProvider, provider } = useWallet()
 const { isMetaMaskInstalled, sliceAddress } = useUtils()
-const { loadConnectedUser, detectChain, setChain, isNetwork, resetUser, isAuthenticated, user, connectUser } = useUser()
+const { loadConnectedUser, detectChain, setChain, isNetwork, resetUser, isAuthenticated, user, connectUser, userLoading } = useUser()
 
 const setListeners = (bool) => {
   if (bool) {
@@ -82,7 +82,7 @@ onUnmounted(() => {
       </div>
     </div>
     <div class="mt-4">
-      <button v-if="!isAuthenticated" @click="connectUser" class="bg-black text-white p-2 rounded-lg">Connect</button>
+      <button v-if="!isAuthenticated" :disabled="userLoading" @click="connectUser" class="bg-black text-white p-2 rounded-lg disabled:opacity-20">{{ userLoading ? 'Loading' : 'Connect' }}</button>
     </div>
   </header>
   <RouterView />
