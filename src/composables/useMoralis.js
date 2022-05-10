@@ -1,4 +1,4 @@
-import Moralis from 'moralis'
+import Moralis from 'moralis/dist/moralis.min.js'
 import { computed, ref, reactive } from 'vue'
 import { useToast } from 'vue-toastification'
 import { createSharedComposable } from '@vueuse/core'

@@ -1,4 +1,4 @@
-import Moralis from 'moralis'
+import Moralis from 'moralis/dist/moralis.min.js'
 
 export default {
     install: async (app) => {
