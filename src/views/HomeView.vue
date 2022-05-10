@@ -1,7 +1,10 @@
 <script setup>
-import { useUser } from '@/composables/'
+import { useUser, useUtils } from '@/composables/'
+
+const contract = import.meta.env.VITE_CONTRACT_ADDRESS
 
 const { ownedTokens, isAuthenticated } = useUser()
+const { getTokenId } = useUtils()
 </script>
 
 <template>
@@ -10,8 +13,10 @@ const { ownedTokens, isAuthenticated } = useUser()
             <div class="text-5xl uppercase tracking-tighter leading-none font-thin">My muertos</div>
             <div class="flex justify-center gap-6 mt-16 leading-none uppercase">
                 <div v-for="(nft, i) in ownedTokens" :key="i">
-                    <img :src="nft.image" :alt="nft.name" class="w-[150px] mx-auto rounded-xl">
-                    <span class="tracking-tighter">{{ nft.name }}</span>
+                    <a :href="`https://opensea.io/assets/${contract}/${getTokenId(nft.name)}`" target="_blank">
+                        <img :src="nft.image" :alt="nft.name" class="w-[150px] mx-auto rounded-xl">
+                    </a>
+                    <span class="tracking-tighter"><a :href="`https://opensea.io/assets/${contract}/${getTokenId(nft.name)}`" target="_blank" class="underline">{{ nft.name }}</a></span>
                     <div v-for="(trait, ind) in nft.attributes" :key="ind" class="mt-4 uppercase leading-none">
                         <span class="tracking-tighter">{{ trait.trait_type }}</span> <br>
                         <span class="text-[10px] leading-none">{{ trait.value }}</span>
