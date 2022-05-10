@@ -10,7 +10,7 @@ const el = ref(window)
 const data = ref([])
 
 const pageNumber = ref(1)
-const pageSize = ref(100)
+const pageSize = ref(20)
 
 const handleData = () => data.value.push(...paginate(meta, pageSize.value, pageNumber.value))
 
