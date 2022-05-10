@@ -9,7 +9,7 @@ export const useUtils = () => {
         if (url.startsWith('ipfs')) {
           let hash = url.split('ipfs://')
           hash = hash.filter(x => !!x)
-          return 'https://ipfs.moralis.io:2053/ipfs/' + hash
+          return `https://ipfs.moralis.io:2053/ipfs/${hash}`
         } else {
           return url
         }
