@@ -26,12 +26,15 @@ export const useUtils = () => {
 
     const randomNumber = (max) => Math.floor(Math.random() * max) + 1
 
+    const getTokenId = (token) => Number(token.match(/\d+/))
+
     return {
         paginate,
         fixURL,
         isMetaMaskInstalled,
         sliceAddress,
         formatBalance,
-        randomNumber
+        randomNumber,
+        getTokenId
     }
 }
