@@ -29,7 +29,7 @@ const onAccountChanged = () => {
 
 const onChainChanged = (_chain) => {
   setChain(_chain)
-  if (_chain === import.meta.env.NETWORK_ID) {
+  if (_chain === import.meta.env.VITE_NETWORK_ID) {
     connectProvider(window.ethereum)
     loadConnectedUser()
   } else {
