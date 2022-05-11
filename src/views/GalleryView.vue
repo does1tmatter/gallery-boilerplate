@@ -31,14 +31,16 @@ const search = () => {
     if (filter.value.length) {
         searchArray.value = []
         data.value = []
+        const tempArr = [...meta]
         filter.value.forEach(term =>
-            metadata.forEach(object =>
+            tempArr.forEach(object =>
                 object.attributes.forEach(trait => {
                     if (trait.value === term) searchArray.value.push(object)
                 })
             )
         )
         if (searchArray.value.length) handleData(searchArray.value)
+        if (!searchArray.value.length) handleData()
     } else {
         searchArray.value = []
         data.value = []
@@ -47,7 +49,10 @@ const search = () => {
 }
 
 const searchCallback = () => {
-    setTimeout(() => search(), 10)
+    setTimeout(() => {
+        pageNumber.value = 1
+        search()
+    }, 10)
 }
 
 onMounted(() => {
