@@ -8,7 +8,7 @@ const { getTokenId } = useUtils()
 </script>
 
 <template>
-    <div class="text-center mt-24">
+    <div class="text-center mt-24 pb-16">
         <div v-if="isAuthenticated">
             <div class="text-5xl uppercase tracking-tighter leading-none font-thin">My muertos</div>
             <div class="flex flex-wrap justify-center gap-6 mt-16 leading-none uppercase">
