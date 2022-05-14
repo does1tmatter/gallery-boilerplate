@@ -26,9 +26,9 @@ const toggleUserData = (e) => {
       :class="
         isAuthenticated ?
         openUserData ?
-        'flex gap-3 items-center border-b border-purple-300 hover:border-purple-300 transition-all py-3 px-4 rounded-md cursor-pointer' :
-        'flex gap-3 items-center border-b border-transparent hover:border-purple-300 transition-all py-3 px-4 rounded-md cursor-pointer' :
-        'flex gap-3 items-center border-b border-transparent hover:border-purple-300 py-3 px-4 rounded-md pointer-events-none'
+        'bg-purple-900 flex gap-3 items-center border-b border-purple-300 hover:border-purple-300 transition-all py-3 px-4 rounded-md cursor-pointer' :
+        'bg-purple-900 flex gap-3 items-center border-b border-transparent hover:border-purple-300 transition-all py-3 px-4 rounded-md cursor-pointer' :
+        'bg-purple-900 flex gap-3 items-center border-b border-transparent hover:border-purple-300 py-3 px-4 rounded-md pointer-events-none'
       "
       @click="toggleUserData"
     >

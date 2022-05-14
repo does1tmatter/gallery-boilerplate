@@ -1,6 +1,7 @@
 <script setup>
 import { useUtils } from '@/composables/'
-import { onMounted, ref, computed, onUnmounted } from 'vue'
+import { onMounted, ref, computed } from 'vue'
+import { useScroll } from '@vueuse/core'
 import { useInfiniteScroll, TransitionPresets, useTransition } from '@vueuse/core'
 import meta from '@/assets/meta.json'
 
@@ -27,6 +28,8 @@ useInfiniteScroll(el, () => {
     if (searchArray.value.length) handleData(searchArray.value)
     if (!searchArray.value.length) handleData()
 })
+
+const { y } = useScroll(window)
 
 
 const toggle = (key, trait) => {
@@ -76,7 +79,7 @@ const resultSize = useTransition(computedSize, {
   transition: TransitionPresets.easeOutQuart,
 })
 
-const isScrolled = computed(() => Boolean(window.scrollY))
+const isScrolled = computed(() => Boolean(y.value))
 
 onMounted(() => {
     handleData()
@@ -85,7 +88,7 @@ onMounted(() => {
 
 <template>
     <div class="flex flex-wrap px-4 pb-24 pt-[120px] max-w-[1920px] mx-auto">
-        <div :class="isScrolled ? 'w-full lg:fixed lg:max-w-xs shrink-0 top-[120px] max-h-screen scrollbar' : 'w-full lg:max-w-xs shrink-0 top-[120px] max-h-screen scrollbar'">
+        <div class="w-full lg:fixed lg:max-w-xs shrink-0 top-[120px] max-h-screen scrollbar">
             <div class="flex justify-between items-center">
                 <div class="flex gap-1 pl-4">
                     <div>
@@ -124,9 +127,9 @@ onMounted(() => {
                 </div>
             </div>
         </div> -->
-        <div :class="isScrolled ? 'text-center flex-1 lg:pl-[344px] grid grid-cols-5 gap-6 px-6' : 'text-center flex-1 grid grid-cols-5 gap-6 px-6'">
+        <div class="text-center flex-1 lg:pl-[344px] grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 px-6">
             <div v-for="(item, i) in data" :key="i">
-                <div class="uppercase tracking-tighter min-h-[400px] bg-cover bg-center border-[3px] border-purple-900 hover:border-purple-200 transition-all duration-500 rounded-xl bg-no-repeat" :style="{
+                <div class="uppercase tracking-tighter min-h-[40vh] sm:min-h-[30vh] bg-cover bg-center border-[3px] border-purple-900 hover:border-purple-200 transition-all duration-500 rounded-xl bg-no-repeat" :style="{
                     backgroundImage: `url(${fixURL(item.image)})`
                     }">
                     <!-- <img :src="" :alt="item.name" class=" inline rounded-xl ml-4"> -->
