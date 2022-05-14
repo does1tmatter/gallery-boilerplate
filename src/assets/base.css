@@ -9,3 +9,56 @@
 .Vue-Toastification__toast-body {
   font-size: 14px !important;
 }
+
+.scrollbar {
+  overflow-y: scroll;
+}
+.scrollbar::-webkit-scrollbar {
+background: transparent;
+width: 4px;
+}
+.scrollbar::-webkit-scrollbar-track {
+background: transparent;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+background: #808080;
+}
+.scrollbar::-webkit-scrollbar-thumb:hover {
+background: #0f0f0f;
+}
+
+html {
+  @apply font-thin scrollbar lining-nums bg-purple-900 text-white;
+}
+
+.slide-profile-enter-active,
+.slide-profile-leave-active {
+  transition: all 0.5s ease-in-out;
+}
+
+.slide-profile-enter-from,
+.slide-profile-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.fadeout-enter-active,
+.fadeout-leave-active {
+  transition: all 0.5s ease-in-out;
+}
+
+.fadeout-enter-from,
+.fadeout-leave-to {
+  opacity: 0;
+}
+
+.slide-profile-enter-active,
+.slide-profile-leave-active {
+  transition: all 0.2s ease-in-out;
+}
+
+.slide-profile-enter-from,
+.slide-profile-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
+}

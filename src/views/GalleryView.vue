@@ -1,23 +1,24 @@
 <script setup>
 import { useUtils } from '@/composables/'
-import { onMounted, ref, computed } from 'vue'
-import { useInfiniteScroll } from '@vueuse/core'
+import { onMounted, ref, computed, onUnmounted } from 'vue'
+import { useInfiniteScroll, TransitionPresets, useTransition } from '@vueuse/core'
 import meta from '@/assets/meta.json'
 
-const metadata = [...meta]
+const metadata = ref([...meta])
 const contract = import.meta.env.VITE_CONTRACT_ADDRESS
 
-const { paginate, fixURL, getTokenId } = useUtils()
+const { paginate, fixURL, getTokenId, generateFilters, createFilterObject } = useUtils()
+const traitList = generateFilters([...meta])
+
+const filters = createFilterObject(traitList)
 
 const pageNumber = ref(1)
-const pageSize = ref(10)
+const pageSize = ref(20)
 
-const handleData = (array = metadata) => data.value.push(...paginate(array, pageSize.value, pageNumber.value))
+const handleData = (array = metadata.value) => data.value.push(...paginate(array, pageSize.value, pageNumber.value))
 
 const data = ref([])
 const searchArray = ref([])
-const filter = ref([])
-const resultSize = computed(() => searchArray.value.length || metadata.length)
 
 const el = ref(window)
 
@@ -27,33 +28,55 @@ useInfiniteScroll(el, () => {
     if (!searchArray.value.length) handleData()
 })
 
-const search = () => {
-    if (filter.value.length) {
-        searchArray.value = []
-        data.value = []
-        const tempArr = [...meta]
-        filter.value.forEach(term =>
-            tempArr.forEach(object =>
-                object.attributes.forEach(trait => {
-                    if (trait.value === term) searchArray.value.push(object)
-                })
-            )
-        )
-        if (searchArray.value.length) handleData(searchArray.value)
-        if (!searchArray.value.length) handleData()
-    } else {
-        searchArray.value = []
-        data.value = []
-        handleData()
-    }
+
+const toggle = (key, trait) => {
+  if (filters[key].includes(trait)) {
+    filters[key].splice(filters[key].indexOf(trait), 1)
+  } else {
+    filters[key].push(trait)
+  }
+  search()
 }
 
-const searchCallback = () => {
-    setTimeout(() => {
-        pageNumber.value = 1
-        search()
-    }, 10)
+const filterData = (_metadata, _filters) => {
+    const filterById = (token) => _filters.id ? Number(_filters.id) === getTokenId(token.name) : true
+    const filterByTraits = (token) => Object.entries(_filters).filter(([ key, value ]) => value?.length).map(([key, value]) => key).every(key => _filters[key].includes(token.attributes?.find(attribute => attribute.trait_type === key)?.value))
+    return _metadata
+            .filter(filterById)
+            .filter(filterByTraits)
+            .sort((a, b) => getTokenId(a.name) + getTokenId(b.name))
 }
+
+const search = () => {
+    pageNumber.value = 1
+    data.value = []
+    metadata.value = filterData([...meta], filters)
+    handleData()
+}
+
+const selected = ref([])
+
+const resetId = () => {
+    filters.id = null
+    search()
+}
+
+const expand = (event) => {
+    event.target.nextSibling.classList.toggle('h-0')
+    event.target.nextSibling.classList.toggle('mb-2')
+    event.target.lastChild.classList.toggle('rotate-180')
+}
+
+const isFiltering = computed(() => Object.values(filters).filter(value => value?.length !== 0))
+
+const computedSize = computed(() => isFiltering.value.length ? metadata.value.length : [...meta].length)
+
+const resultSize = useTransition(computedSize, {
+  duration: 1000,
+  transition: TransitionPresets.easeOutQuart,
+})
+
+const isScrolled = computed(() => Boolean(window.scrollY))
 
 onMounted(() => {
     handleData()
@@ -61,37 +84,52 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="text-center mt-20">
-        <div>{{ filter }}</div>
-        <div>{{ resultSize }} results</div>
-        <div class="flex gap-4 justify-center items-center">
-            <div>
-                <input v-model="filter" type="checkbox" id="test1" name="Everyday Metallic" value="Everyday Metallic" @click="searchCallback">
-                <label for="test1">Everyday Metallic</label>
+    <div class="flex flex-wrap px-4 pb-24 pt-[120px] max-w-[1920px] mx-auto">
+        <div :class="isScrolled ? 'w-full lg:fixed lg:max-w-xs shrink-0 top-[120px] max-h-screen scrollbar' : 'w-full lg:max-w-xs shrink-0 top-[120px] max-h-screen scrollbar'">
+            <div class="flex justify-between items-center">
+                <div class="flex gap-1 pl-4">
+                    <div>
+                        <div class="uppercase text-[10px] leading-none text-purple-100 font-normal">Filter by ID</div>
+                        <input v-model="filters.id" type="number" min="1" max="10000" class="border border-purple-300 rounded-sm py-1 pl-2 text-[12px] bg-transparent appearance-none text-center" @input="search">
+                    </div>
+                    <img v-if="filters.id" src="@/assets/img/close.svg" class="cursor-pointer self-end" @click="resetId">
+                </div>
+                <div class="text-[10px] uppercase -mt-1 text-purple-200 tracking-normal font-normal">{{ resultSize.toFixed() }} Results</div>
             </div>
-            <div>
-                <input v-model="filter" type="checkbox" id="test2" name="Everyday Yellow" value="Everyday Yellow" @click="searchCallback">
-                <label for="test2">Everyday Yellow</label>
-            </div>
-            <div>
-                <input v-model="filter" type="checkbox" id="test3" name="Yeti" value="Yeti" @click="searchCallback">
-                <label for="test3">Yeti</label>
-            </div>
-            <div>
-                <input v-model="filter" type="checkbox" id="test4" name="The Pink Devil" value="The Pink Devil" @click="searchCallback">
-                <label for="test4">The Pink Devil</label>
+            <div v-for="(traits, key, indx) in traitList" :key="indx" class="mt-2">
+                <div class="cursor-pointer uppercase tracking-tighter my-6 px-4 rounded-xl border-b border-purple-500 pb-6" @click="expand">
+                    {{ key }}
+                    <img src="@/assets/img/arrow.svg" alt="" class="w-[24] transition float-right pointer-events-none">
+                </div>
+                <div class="w-full px-6 mt-3 max-h-80 h-0 scrollbar transition-all rounded-xl">
+                    <div v-for="(trait, i) in traits" :key="i" class="flex items-center mt-2 text-[14px]">
+                        <input v-model="selected[trait]" type="checkbox" :id="`${key + i}`" class="appearance-none rounded-md bg-transparent border border-purple-500 p-2 checked:bg-purple-300" @click="toggle(key, trait)">
+                        <label :for="`${key + i}`" class="ml-2">{{ trait }}</label>
+                    </div>
+                </div>
             </div>
         </div>
-        <div v-for="(item, i) in data" :key="i" class="mt-8">
-            <div class="uppercase tracking-tighter">
-                Token: {{ getTokenId(item.name) }} ({{ i }})
-                <img :src="fixURL(item.image)" :alt="item.name" class="w-14 inline rounded-xl ml-4">
-                <a :href="`https://opensea.io/assets/${contract}/${getTokenId(item.name)}`" target="_blank" class="underline ml-4">{{ item.name }}</a>
+        <!-- <div :class="isScrolled ? 'text-center flex-1 lg:pl-[320px]' : 'text-center flex-1'">
+            <div v-for="(item, i) in data" :key="i" class="mt-8">
+                <div class="uppercase tracking-tighter">
+                    Token: {{ getTokenId(item.name) }} ({{ i }})
+                    <img :src="fixURL(item.image)" :alt="item.name" class="w-14 inline rounded-xl ml-4">
+                    <a :href="`https://opensea.io/assets/${contract}/${getTokenId(item.name)}`" target="_blank" class="underline ml-4">{{ item.name }}</a>
+                </div>
+                <div class="flex flex-wrap gap-10 justify-center mt-4">
+                    <div v-for="(trait) in item.attributes" class="uppercase leading-none">
+                        <span class="tracking-tighter">{{ trait.trait_type }}</span> <br>
+                        <span class="text-[10px]">{{ trait.value }}</span>
+                    </div>
+                </div>
             </div>
-            <div class="flex gap-10 justify-center mt-4">
-                <div v-for="(trait, i) in item.attributes" class="uppercase leading-none">
-                    <span class="tracking-tighter">{{ trait.trait_type }}</span> <br>
-                    <span class="text-[10px]">{{ trait.value }}</span>
+        </div> -->
+        <div :class="isScrolled ? 'text-center flex-1 lg:pl-[344px] grid grid-cols-5 gap-6 px-6' : 'text-center flex-1 grid grid-cols-5 gap-6 px-6'">
+            <div v-for="(item, i) in data" :key="i">
+                <div class="uppercase tracking-tighter min-h-[400px] bg-cover bg-center border-[3px] border-purple-900 hover:border-purple-200 transition-all duration-500 rounded-xl bg-no-repeat" :style="{
+                    backgroundImage: `url(${fixURL(item.image)})`
+                    }">
+                    <!-- <img :src="" :alt="item.name" class=" inline rounded-xl ml-4"> -->
                 </div>
             </div>
         </div>

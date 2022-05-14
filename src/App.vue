@@ -3,6 +3,7 @@ import { onMounted, onUnmounted } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { useToast } from 'vue-toastification'
 import { useWallet, useUser, useUtils } from '@/composables/'
+import Navigation from '@/components/Navigation.vue'
 
 const toast = useToast()
 const { connectProvider, provider } = useWallet()
@@ -61,33 +62,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header class="text-center">
-    <div class="flex gap-4 justify-center mt-10 uppercase tracking-tighter">
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/gallery">Gallery</RouterLink>
-    </div>
-    <div class="fixed top-4 left-4 flex uppercase text-[10px]">
-      <div class="text-left">
-        <div v-for="(item, key) in user" :key="key">
-          {{ key }}
-        </div>
-        <div>
-          Metamask
-        </div>
-      </div>
-      <div class="text-right">
-        <div v-for="(item, key) in user" :key="key">
-          {{ item ? item.length === 42 ? sliceAddress(item) : item : 'none' }}
-        </div>
-        <div>
-          {{ isMetaMaskInstalled }}
-        </div>
-      </div>
-    </div>
-    <div class="mt-24">
-      <button v-if="!isAuthenticated" :disabled="userLoading" @click="connectUser" class="bg-black text-white p-2 rounded-lg disabled:opacity-20">{{ userLoading ? 'Loading' : 'Connect' }}</button>
-    </div>
-  </header>
+  <Navigation />
   <RouterView />
 </template>
 
