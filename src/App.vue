@@ -63,6 +63,10 @@ onUnmounted(() => {
 
 <template>
   <Navigation />
-  <RouterView />
+  <RouterView v-slot="{ Component }">
+    <Transition name="galleryAnim">
+      <component :is="Component" />
+    </Transition>
+  </RouterView>
 </template>
 

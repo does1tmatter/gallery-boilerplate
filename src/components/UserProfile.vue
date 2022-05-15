@@ -54,11 +54,11 @@ const toggleUserData = (e) => {
             <div class="mt-2">{{ user.ownedBalance }} LM</div>
           </div>
         </div>
-        <div class="text-center mt-2 py-1 bg-purple-700">
-          <RouterLink to="/profile" @click="toggleUserData">
+        <RouterLink to="/profile" @click="toggleUserData">
+          <div class="text-center py-1 bg-purple-700 hover:bg-purple-600 transition-all">
             My Tokens
-          </RouterLink>
-        </div>
+          </div>
+        </RouterLink>
       </div>
     </Transition>
   </div>
