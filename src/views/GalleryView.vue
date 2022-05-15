@@ -14,7 +14,7 @@ const traitList = generateFilters([...meta])
 const filters = createFilterObject(traitList)
 
 const pageNumber = ref(1)
-const pageSize = ref(20)
+const pageSize = ref(25)
 
 const handleData = (array = metadata.value) => data.value.push(...paginate(array, pageSize.value, pageNumber.value))
 
@@ -40,6 +40,8 @@ const toggle = (key, trait) => {
   }
   search()
 }
+
+const resetCategory = (category) => filters[category] = []
 
 const filterData = (_metadata, _filters) => {
     const filterById = (token) => _filters.id ? Number(_filters.id) === getTokenId(token.name) : true
@@ -105,7 +107,7 @@ onMounted(() => {
             </div>
             <div v-for="(traits, key, indx) in traitList" :key="indx" class="mt-2">
                 <div class="cursor-pointer uppercase tracking-tighter my-6 px-4 rounded-xl border-b border-purple-500 pb-6" @click="expand">
-                    {{ key }}
+                    <span>{{ key }}</span>
                     <img src="@/assets/img/arrow.svg" alt="" class="w-[24] transition float-right pointer-events-none">
                 </div>
                 <div class="w-full px-6 mt-3 max-h-80 h-0 scrollbar transition-all rounded-xl">
@@ -131,12 +133,15 @@ onMounted(() => {
                 </div>
             </div>
         </div> -->
-        <div class="text-center flex-1 lg:pl-[344px] grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 px-6">
-            <div v-for="(item, i) in data" :key="i">
-                <div class="uppercase tracking-tighter border-[3px] border-purple-900 hover:border-purple-200 transition-all duration-500 rounded-xl overflow-hidden">
-                    <img :src="getImageUrl(getTokenId(item.name))" :alt="item.name">
+        <Transition name="fadeout">
+            <div v-if="data.length" class="text-center flex-1 lg:pl-[344px] grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 px-6">
+                <div v-for="(item, i) in data" :key="i">
+                    <div class="uppercase tracking-tighter border-[3px] border-purple-900 hover:border-purple-200 transition-all duration-500 rounded-xl overflow-hidden">
+                        <img :src="getImageUrl(getTokenId(item.name))" :alt="item.name">
+                    </div>
                 </div>
             </div>
-        </div>
+            <div v-else-if="!data.length">Loading</div>
+        </Transition>
     </div>
 </template>

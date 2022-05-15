@@ -33,7 +33,7 @@ html {
 
 .slide-profile-enter-active,
 .slide-profile-leave-active {
-  transition: all 0.5s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .slide-profile-enter-from,
@@ -50,15 +50,4 @@ html {
 .fadeout-enter-from,
 .fadeout-leave-to {
   opacity: 0;
-}
-
-.slide-profile-enter-active,
-.slide-profile-leave-active {
-  transition: all 0.2s ease-in-out;
-}
-
-.slide-profile-enter-from,
-.slide-profile-leave-to {
-  opacity: 0;
-  transform: translateY(-20px);
 }
