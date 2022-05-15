@@ -43,7 +43,10 @@ export const useUtils = () => {
         })
       }
     })
-
+    for (const key in filters) {
+      filters[key].sort((a, b) => a.localeCompare(b))
+    }
+    
     return filters
   }
 

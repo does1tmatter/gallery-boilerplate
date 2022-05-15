@@ -14,11 +14,7 @@ const avatarString = computed(() => user.ensAvatar|| fallbackAvatar.value)
 
 const openUserData = ref(false)
 
-const toggleUserData = (e) => {
-  if (isAuthenticated.value) {
-    openUserData.value = !openUserData.value
-  }
-}
+const toggleUserData = (e) => isAuthenticated.value ? openUserData.value = !openUserData.value : ''
 </script>
 
 <template>
