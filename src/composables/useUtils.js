@@ -63,10 +63,6 @@ export const useUtils = () => {
             .sort((a, b) => getTokenId(a.name) + getTokenId(b.name))
   }
 
-  const getImageUrl = (id) => {
-      return new URL(`../assets/img/jpeg/${id}.jpg`, import.meta.env.BASE_URL).href
-  }
-
   return {
     paginate,
     fixURL,
@@ -77,7 +73,6 @@ export const useUtils = () => {
     getTokenId,
     generateFilters,
     createFilterObject,
-    filterData,
-    getImageUrl
+    filterData
   }
 }

@@ -5,8 +5,12 @@ import { useUtils } from '@/composables/'
 
 const props = defineProps(['data'])
 
-const { getTokenId, getImageUrl } = useUtils()
+const { getTokenId } = useUtils()
 const route = useRoute()
+
+const getImageUrl = (id) => {
+    return new URL(`../assets/img/jpeg/${id}.jpg`, import.meta.url).href
+}
 
 const baseURL = route.path === '/' ? '' : route.path
 
