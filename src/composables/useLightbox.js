@@ -13,7 +13,8 @@ export function useLightbox () {
 
   const closeBox = () => {
     showBox.value = false
-    if (route.params.token) router.push({ path: '/' })
+    console.log(route)
+    if (route.params.token) history.state.back ? history.back() : router.push({ path: '/' })
   }
 
   const checkModal = () => route.params.token ? openBox() : closeBox()

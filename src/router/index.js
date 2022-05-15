@@ -17,7 +17,10 @@ const router = createRouter({
     {
       path: '/profile',
       name: 'profile',
-      component: ProfileView
+      component: ProfileView,
+      children: [
+        { path: ':token', component: Lightbox }
+      ]
     }
   ],
   scrollBehavior (to, from, savedPosition) {

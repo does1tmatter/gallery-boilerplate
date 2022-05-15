@@ -1,5 +1,5 @@
 <script setup>
-import { useUtils, useLightbox } from '@/composables/'
+import { useUtils } from '@/composables/'
 import { onMounted, ref, computed } from 'vue'
 import { useInfiniteScroll, TransitionPresets, useTransition } from '@vueuse/core'
 import { RouterLink } from 'vue-router'
@@ -8,7 +8,6 @@ import GalleryItems from '@/components/GalleryItems.vue'
 
 const metadata = ref([...meta])
 
-const { Lightbox, showBox, openBox, closeBox, checkModal } = useLightbox()
 const { paginate, fixURL, getTokenId, generateFilters, createFilterObject, filterData, getImageUrl } = useUtils()
 const traitList = generateFilters([...meta])
 
@@ -85,7 +84,6 @@ const resultSize = useTransition(computedSize, {
 const isLoaded = computed(() => Boolean(data.value.length))
 
 onMounted(() => {
-    checkModal()
     handleData()
 })
 </script>
@@ -145,9 +143,6 @@ onMounted(() => {
             <div v-else-if="isLoaded" class="text-center flex-1 lg:pl-[344px] grid max-w-[500px] sm:max-w-none mx-auto sm:mx-0 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 px-6">
                 <GalleryItems :data="data" />
             </div>
-        </Transition>
-        <Transition name="slide-modal">
-            <Lightbox v-if="showBox" @hide-lightbox="closeBox" :metadata="meta" />
         </Transition>
     </div>
 </template>
