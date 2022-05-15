@@ -21,10 +21,10 @@ width: 4px;
 background: transparent;
 }
 .scrollbar::-webkit-scrollbar-thumb {
-background: #808080;
+@apply bg-purple-500;
 }
 .scrollbar::-webkit-scrollbar-thumb:hover {
-background: #0f0f0f;
+@apply bg-purple-400;
 }
 
 .scrollbar-lightbox {
@@ -46,6 +46,7 @@ background: #0f0f0f;
 
 html {
   overflow-x: hidden;
+  scroll-behavior: smooth;
   @apply font-thin scrollbar lining-nums bg-purple-900 text-white;
 }
 

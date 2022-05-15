@@ -168,7 +168,7 @@ onMounted(() => {
       <div v-if="!isLoaded" class="text-center">Loading</div>
       <div v-else-if="isLoaded" class="flex-1 text-center">
         <div
-          class="text-center grid max-w-[500px] sm:max-w-none mx-auto sm:mx-0 grid-rows-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 px-6 pb-4"
+          class="text-center grid max-w-[500px] sm:max-w-none mx-auto sm:mx-0 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 px-6 pb-4"
         >
           <GalleryItems :data="data" />
         </div>
