@@ -134,7 +134,7 @@ onMounted(() => {
             </div>
         </div> -->
         <Transition name="fadeout">
-            <div v-if="data.length" class="text-center flex-1 lg:pl-[344px] grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 px-6">
+            <div v-if="data.length" class="text-center flex-1 lg:pl-[344px] grid max-w-[500px] sm:max-w-none mx-auto sm:mx-0 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 px-6">
                 <div v-for="(item, i) in data" :key="i">
                     <div class="uppercase tracking-tighter border-[3px] border-purple-900 hover:border-purple-200 transition-all duration-500 rounded-xl overflow-hidden">
                         <img :src="getImageUrl(getTokenId(item.name))" :alt="item.name">
