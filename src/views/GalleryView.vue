@@ -64,6 +64,10 @@ const resetId = () => {
     search()
 }
 
+const getImageUrl = (id) => {
+        return new URL(`../assets/img/jpeg/${id}.jpg`, import.meta.url).href
+    }
+
 const expand = (event) => {
     event.target.nextSibling.classList.toggle('h-0')
     event.target.nextSibling.classList.toggle('mb-2')
@@ -92,7 +96,7 @@ onMounted(() => {
             <div class="flex justify-between items-center">
                 <div class="flex gap-1 pl-4">
                     <div>
-                        <div class="uppercase text-[10px] leading-none text-purple-100 font-normal">Filter by ID</div>
+                        <div class="uppercase text-[10px] text-purple-100 font-normal">Filter by ID</div>
                         <input v-model="filters.id" type="number" min="1" max="10000" class="border border-purple-300 rounded-sm py-1 pl-2 text-[12px] bg-transparent appearance-none text-center" @input="search">
                     </div>
                     <img v-if="filters.id" src="@/assets/img/close.svg" class="cursor-pointer self-end" @click="resetId">
@@ -129,10 +133,8 @@ onMounted(() => {
         </div> -->
         <div class="text-center flex-1 lg:pl-[344px] grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 px-6">
             <div v-for="(item, i) in data" :key="i">
-                <div class="uppercase tracking-tighter min-h-[40vh] sm:min-h-[30vh] bg-cover bg-center border-[3px] border-purple-900 hover:border-purple-200 transition-all duration-500 rounded-xl bg-no-repeat" :style="{
-                    backgroundImage: `url(${fixURL(item.image)})`
-                    }">
-                    <!-- <img :src="" :alt="item.name" class=" inline rounded-xl ml-4"> -->
+                <div class="uppercase tracking-tighter border-[3px] border-purple-900 hover:border-purple-200 transition-all duration-500 rounded-xl overflow-hidden">
+                    <img :src="getImageUrl(getTokenId(item.name))" :alt="item.name">
                 </div>
             </div>
         </div>
