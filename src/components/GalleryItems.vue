@@ -22,7 +22,9 @@ const baseURL = computed(() => route.path === '/' ? '' : showBox.value ? '' : ro
 
 <template>
   <RouterLink v-for="(item, i) in data" :key="i" :to="`${baseURL}/${getTokenId(item.name)}`" class="relative uppercase tracking-tighter border-[3px] border-purple-900 hover:border-purple-200 transition-all duration-500 rounded-xl overflow-hidden">
-      <img :src="getImageUrl(getTokenId(item.name))" :alt="item.name">
-      <div class="text-center w-full bg-purple-600 text-[12px]">{{ item.name }}</div>
+      <div data-aos="fade-in">
+        <img :src="getImageUrl(getTokenId(item.name))" :alt="item.name">
+        <div class="text-center w-full bg-purple-600 text-[12px]">{{ item.name }}</div>
+      </div>
   </RouterLink>
 </template>

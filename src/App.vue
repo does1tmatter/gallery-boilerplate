@@ -5,6 +5,8 @@ import { useToast } from 'vue-toastification'
 import { useWallet, useUser, useUtils, useLightbox } from '@/composables/'
 import Navigation from '@/components/Navigation.vue'
 import meta from '@/assets/meta.json'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 const toast = useToast()
 const { connectProvider, provider } = useWallet()
@@ -43,6 +45,7 @@ const onChainChanged = (_chain) => {
 
 onMounted(() => {
   checkModal()
+  AOS.init()
   if (isMetaMaskInstalled.value) {
     connectProvider(window.ethereum)
     detectChain().then(() => {

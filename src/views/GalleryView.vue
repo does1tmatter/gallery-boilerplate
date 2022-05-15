@@ -6,37 +6,33 @@ import {
   TransitionPresets,
   useTransition,
 } from "@vueuse/core"
-import { RouterLink } from "vue-router"
 import meta from "@/assets/meta.json"
 import GalleryItems from "@/components/GalleryItems.vue"
 
+const { paginate, generateFilters, createFilterObject, filterData } = useUtils()
+
+const data = ref([])
 const metadata = ref([...meta])
-
-const {
-  paginate,
-  generateFilters,
-  createFilterObject,
-  filterData,
-} = useUtils()
-const traitList = generateFilters([...meta])
-
-const filters = createFilterObject(traitList)
 
 const pageNumber = ref(1)
 const pageSize = ref(25)
-
 const handleData = (array = metadata.value) => data.value.push(...paginate(array, pageSize.value, pageNumber.value))
 
-const data = ref([])
+const isLoaded = ref(false)
 
-const el = ref(window)
+const traitList = generateFilters([...meta])
+const filters = createFilterObject(traitList)
+const selected = ref([])
+const isFiltering = computed(() => Boolean(Object.values(filters).find((value) => value?.length !== 0)))
 
-const loadMore = () => {
-  pageNumber.value++
+const search = () => {
+  isLoaded.value = false
+  pageNumber.value = 1
+  data.value = []
+  metadata.value = filterData([...meta], filters)
   handleData()
+  isLoaded.value = true
 }
-
-useInfiniteScroll(el, () => loadMore())
 
 const toggle = (key, trait) => {
   setTimeout(() => {
@@ -51,36 +47,18 @@ const toggle = (key, trait) => {
 
 const resetAllFilters = () => {
   for (const key in filters) {
-    if (key !== "id") filters[key] = []
-    if (key === "id") filters[key] = null
+    // if (key !== "id") filters[key] = []
+    // if (key === "id") filters[key] = null
+    key !== 'id' ? filters[key] = [] : filters[key] = null
   }
   selected.value = []
   search()
 }
 
-const search = () => {
-  isLoaded.value = false
-  pageNumber.value = 1
-  data.value = []
-  metadata.value = filterData([...meta], filters)
-  handleData()
-  isLoaded.value = true
-}
-
-const selected = ref([])
-
 const resetId = () => {
   filters.id = null
   search()
 }
-
-const expand = (event) => {
-  event.target.nextSibling.classList.toggle("h-0")
-  event.target.nextSibling.classList.toggle("mb-2")
-  event.target.lastChild.classList.toggle("rotate-180")
-}
-
-const isFiltering = computed(() => Boolean(Object.values(filters).find((value) => value?.length !== 0)))
 
 const computedSize = computed(() => isFiltering.value ? metadata.value.length : [...meta].length)
 
@@ -89,9 +67,21 @@ const resultSize = useTransition(computedSize, {
   transition: TransitionPresets.easeOutQuart,
 })
 
-const isLoaded = ref(false)
-
 const hasMore = computed(() => Boolean(data.value.length !== metadata.value.length))
+
+const loadMore = () => {
+  pageNumber.value++
+  handleData()
+}
+
+const el = ref(window)
+useInfiniteScroll(el, () => loadMore())
+
+const expand = (event) => {
+  event.target.nextSibling.classList.toggle("h-0")
+  event.target.nextSibling.classList.toggle("mb-2")
+  event.target.lastChild.classList.toggle("rotate-180")
+}
 
 onMounted(() => {
   handleData()
@@ -178,7 +168,7 @@ onMounted(() => {
       <div v-if="!isLoaded" class="text-center">Loading</div>
       <div v-else-if="isLoaded" class="flex-1 text-center">
         <div
-          class="text-center grid max-w-[500px] sm:max-w-none mx-auto sm:mx-0 grid-rows-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 px-6 pb-8"
+          class="text-center grid max-w-[500px] sm:max-w-none mx-auto sm:mx-0 grid-rows-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 px-6 pb-4"
         >
           <GalleryItems :data="data" />
         </div>

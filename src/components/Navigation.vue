@@ -20,7 +20,7 @@ const { isAuthenticated, userLoading, connectUser, user } = useUser()
       <div class="flex gap-4 items-center">
         <div>
           <Transition name="fadeout">
-            <button v-if="!user.isNetwork && isMetaMaskInstalled" class="py-[5px] px-[10px] bg-purple-200 rounded-lg mr-4 hover:bg-purple-200" @click="switchNetwork">
+            <button v-if="!user.isNetwork && isMetaMaskInstalled" class="py-[5px] px-[10px] bg-purple-500 rounded-lg mr-4 hover:bg-purple-400" @click="switchNetwork">
               Switch Network
             </button>
           </Transition>
@@ -29,7 +29,7 @@ const { isAuthenticated, userLoading, connectUser, user } = useUser()
               v-if="!isAuthenticated && isMetaMaskInstalled"
               :disabled="userLoading || !user.isNetwork"
               @click="connectUser"
-              class="disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-purple-100 bg-purple-200 rounded-lg py-[5px] px-[10px] hover:bg-purple-200"
+              class="disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-purple-500 bg-purple-500 rounded-lg py-[5px] px-[10px] hover:bg-purple-400"
             >
               Connect
             </button>

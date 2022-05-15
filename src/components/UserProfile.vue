@@ -41,8 +41,8 @@ const toggleUserData = (e) => {
       </div>
     </div>
     <Transition name="slide-profile">
-      <div v-if="openUserData && isAuthenticated" class="z-50 absolute w-full mt-2 bg-purple-500 rounded-md text-[10px] sm:text-[11px] uppercase leading-none overflow-hidden">
-        <div class="absolute -top-1 w-0 h-0 border-b-[5px] border-x-[5px] border-b-purple-500 border-x-transparent">
+      <div v-if="openUserData && isAuthenticated" class="z-50 absolute w-full mt-2 bg-purple-500 rounded-md text-[10px] sm:text-[11px] uppercase leading-none">
+        <div class="absolute -top-1 left-2 w-0 h-0 border-b-[5px] border-x-[5px] border-b-purple-500 border-x-transparent">
         </div>
         <div class="flex justify-between whitespace-nowrap p-2">
           <div class="text-white">
@@ -55,7 +55,7 @@ const toggleUserData = (e) => {
           </div>
         </div>
         <RouterLink to="/profile" @click="toggleUserData">
-          <div class="text-center py-1 bg-purple-700 hover:bg-purple-600 transition-all">
+          <div class="text-center py-1 bg-purple-700 hover:bg-purple-400 transition-all rounded-b-md">
             My Tokens
           </div>
         </RouterLink>
