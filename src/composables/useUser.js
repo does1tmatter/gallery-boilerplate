@@ -27,7 +27,7 @@ export const useUser = createSharedComposable(() => {
     ownedBalance: computed(() => ownedTokens.value ? ownedTokens.value.length : 0),
   })
 
-  const ownedTokens = ref(null)
+  const ownedTokens = ref([])
 
   const userLoading = ref(false)
   const isNetwork = computed(() => Boolean(user.chain === import.meta.env.VITE_NETWORK_ID))
@@ -83,7 +83,7 @@ export const useUser = createSharedComposable(() => {
     user.ensName = null
     user.ensAvatar = null
     user.balance = null
-    ownedTokens.value = null
+    ownedTokens.value = []
   }
 
   const loadConnectedUser = async () => {

@@ -28,15 +28,15 @@ const pageSize = ref(25)
 const handleData = (array = metadata.value) => data.value.push(...paginate(array, pageSize.value, pageNumber.value))
 
 const data = ref([])
-const searchArray = ref([])
 
 const el = ref(window)
 
-useInfiniteScroll(el, () => {
+const loadMore = () => {
   pageNumber.value++
-  if (searchArray.value.length) handleData(searchArray.value)
-  if (!searchArray.value.length) handleData()
-})
+  handleData()
+}
+
+useInfiniteScroll(el, () => loadMore())
 
 const toggle = (key, trait) => {
   setTimeout(() => {
@@ -49,8 +49,6 @@ const toggle = (key, trait) => {
   }, 10)
 }
 
-const resetCategory = (category) => (filters[category] = [])
-
 const resetAllFilters = () => {
   for (const key in filters) {
     if (key !== "id") filters[key] = []
@@ -61,10 +59,12 @@ const resetAllFilters = () => {
 }
 
 const search = () => {
+  isLoaded.value = false
   pageNumber.value = 1
   data.value = []
   metadata.value = filterData([...meta], filters)
   handleData()
+  isLoaded.value = true
 }
 
 const selected = ref([])
@@ -80,23 +80,22 @@ const expand = (event) => {
   event.target.lastChild.classList.toggle("rotate-180")
 }
 
-const isFiltering = computed(() =>
-  Boolean(Object.values(filters).find((value) => value?.length !== 0))
-)
+const isFiltering = computed(() => Boolean(Object.values(filters).find((value) => value?.length !== 0)))
 
-const computedSize = computed(() =>
-  isFiltering.value ? metadata.value.length : [...meta].length
-)
+const computedSize = computed(() => isFiltering.value ? metadata.value.length : [...meta].length)
 
 const resultSize = useTransition(computedSize, {
   duration: 1000,
   transition: TransitionPresets.easeOutQuart,
 })
 
-const isLoaded = computed(() => Boolean(data.value.length))
+const isLoaded = ref(false)
+
+const hasMore = computed(() => Boolean(data.value.length !== metadata.value.length))
 
 onMounted(() => {
   handleData()
+  isLoaded.value = true
 })
 </script>
 
@@ -177,11 +176,15 @@ onMounted(() => {
     </div>
     <Transition name="galleryAnim">
       <div v-if="!isLoaded" class="text-center">Loading</div>
-      <div
-        v-else-if="isLoaded"
-        class="text-center flex-1 grid max-w-[500px] sm:max-w-none mx-auto sm:mx-0 grid-rows-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 px-6 pb-16"
-      >
-        <GalleryItems :data="data" />
+      <div v-else-if="isLoaded" class="flex-1 text-center">
+        <div
+          class="text-center grid max-w-[500px] sm:max-w-none mx-auto sm:mx-0 grid-rows-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 px-6 pb-8"
+        >
+          <GalleryItems :data="data" />
+        </div>
+        <button v-if="hasMore" class="bg-purple-500 w-[50%] mb-4 text-xs py-1" @click="loadMore">
+          Load more
+        </button>
       </div>
     </Transition>
   </div>
