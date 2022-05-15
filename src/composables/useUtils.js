@@ -64,7 +64,7 @@ export const useUtils = () => {
   }
 
   const getImageUrl = (id) => {
-      return new URL(`../assets/img/jpeg/${id}.jpg`, import.meta.url).href
+      return new URL(`../assets/img/jpeg/${id}.jpg`, import.meta.env.BASE_URL).href
   }
 
   return {
