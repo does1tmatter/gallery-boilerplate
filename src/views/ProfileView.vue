@@ -3,10 +3,9 @@ import { onMounted, ref, computed, watch } from "vue"
 import { useUser, useUtils } from "@/composables/"
 import GalleryItems from "@/components/GalleryItems.vue"
 import { useInfiniteScroll } from "@vueuse/core"
-const contract = import.meta.env.VITE_CONTRACT_ADDRESS
 
 const { ownedTokens, isAuthenticated } = useUser()
-const { getTokenId, paginate } = useUtils()
+const { paginate } = useUtils()
 
 const data = ref([])
 
@@ -23,7 +22,10 @@ const loadMore = () => {
 
 useInfiniteScroll(window, () => loadMore())
 
-watch(ownedTokens, () => handleData())
+watch(ownedTokens, () => {
+  data.value = []
+  handleData()
+})
 
 const hasMore = computed(() =>
   Boolean(data.value.length !== ownedTokens.value.length)
@@ -42,7 +44,7 @@ onMounted(() => {
       >
         My tokens
       </div>
-      <div class="text-center mt-8">
+      <div v-if="ownedTokens.length" class="text-center mt-8">
         <div
           class="text-center mt-8 grid max-w-[500px] sm:max-w-none mx-auto sm:mx-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-6 px-6"
         >
@@ -55,6 +57,9 @@ onMounted(() => {
         >
           Load more
         </button>
+      </div>
+      <div v-else-if="!ownedTokens.length" class="text-center mt-8">
+        No tokens owned. 😔
       </div>
     </div>
   </div>
