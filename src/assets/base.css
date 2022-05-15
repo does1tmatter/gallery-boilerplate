@@ -86,11 +86,11 @@ html {
 
 .galleryAnim-enter-active,
 .galleryAnim-leave-active {
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .galleryAnim-enter-active {
-  transition-delay: 500ms;
+  transition-delay: 300ms;
 }
 
 .galleryAnim-enter-from,
@@ -107,7 +107,7 @@ html {
 
 .resetButton-enter-active,
 .resetButton-leave-active {
-  transition: all 0.5s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .resetButton-enter-from,

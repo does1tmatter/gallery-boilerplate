@@ -23,17 +23,17 @@ const token = props.metadata.find(token => getTokenId(token.name) === parseFloat
         <div class="font-black text-3xl uppercase">
           {{ token.name }}
         </div>
-        <div class="flex gap-2 flex-wrap">
-          <a :href="`https://opensea.io/assets/${contract}/${route.params.token}`" target="_blank" class="py-2 px-4 bg-purple-500 text-[10px] rounded-md">
+        <div>
+          <a :href="`https://opensea.io/assets/${contract}/${route.params.token}`" target="_blank" class="py-2 px-2 bg-purple-500 text-[2vw] sm:text-[10px] rounded-md">
           OpenSea
           </a>
-          <a :href="`https://looksrare.org/collections/${contract}/${route.params.token}`" target="_blank" class="py-2 px-4 bg-purple-500 ml-2 text-[10px] rounded-md">
+          <a :href="`https://looksrare.org/collections/${contract}/${route.params.token}`" target="_blank" class="py-2 px-2 bg-purple-500 ml-2 text-[2vw] sm:text-[10px] rounded-md">
             LooksRare
           </a>
-          <a :href="`https://rarible.com/token/${contract}:${route.params.token}`" target="_blank" class="py-2 px-4 bg-purple-500 ml-2 text-[10px] rounded-md">
+          <a :href="`https://rarible.com/token/${contract}:${route.params.token}`" target="_blank" class="py-2 px-2 bg-purple-500 ml-2 text-[2vw] sm:text-[10px] rounded-md">
             Rarible
           </a>
-          <a :href="`https://nft.coinbase.com/nft/ethereum/${contract}/${route.params.token}`" target="_blank" class="py-2 px-4 bg-purple-500 ml-2 text-[10px] rounded-md">
+          <a :href="`https://nft.coinbase.com/nft/ethereum/${contract}/${route.params.token}`" target="_blank" class="py-2 px-2 bg-purple-500 ml-2 text-[2vw] sm:text-[10px] rounded-md">
             Coinbase
           </a>
         </div>
