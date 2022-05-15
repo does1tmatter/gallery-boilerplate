@@ -1,8 +1,9 @@
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { createSharedComposable } from '@vueuse/core'
 import Lightbox from '@/components/Lightbox.vue'
 
-export function useLightbox () {
+export const useLightbox = createSharedComposable(() => {
 
   const route = useRoute()
   const router = useRouter()
@@ -12,9 +13,8 @@ export function useLightbox () {
   const openBox = () => showBox.value = true
 
   const closeBox = () => {
-    showBox.value = false
-    console.log(route)
     if (route.params.token) history.state.back ? history.back() : router.push({ path: '/' })
+    setTimeout(() => showBox.value = false, 10)
   }
 
   const checkModal = () => route.params.token ? openBox() : closeBox()
@@ -28,4 +28,4 @@ export function useLightbox () {
     closeBox,
     checkModal
   }
-}
+}) 

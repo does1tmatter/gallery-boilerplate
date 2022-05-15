@@ -15,11 +15,11 @@ const token = props.metadata.find(token => getTokenId(token.name) === parseFloat
 
 <template>
   <div class="fixed top-0 left-0 z-50 w-screen h-screen bg-black bg-opacity-60 backdrop-blur-md flex justify-center items-center p-8 lg:p-0" @click.self="$emit('hide-lightbox', false)">
-    <div class="bg-purple-700 rounded-2xl overflow-hidden lg:flex lg:grid-cols-2 2xl:max-w-[90vw] max-h-[90vh]">
-      <div class="h-full lg:min-h-[420px] lg:min-w-[420px] lg:max-h-[420px] w-full max-w-[500px] lg:max-w-[420px]">
+    <div class="bg-purple-700 rounded-2xl overflow-hidden lg:flex 2xl:max-w-[90vw] max-h-[90vh] scrollbar-lightbox">
+      <div class="h-full lg:min-h-[420px] lg:min-w-[420px] lg:max-h-[420px] w-full max-w-[420px] lg:max-w-[420px]">
         <img :src="fixURL(token.image)" />
       </div>
-      <div class="px-4 py-8 lg:px-8 flex flex-col gap-4">
+      <div class="px-4 py-8 lg:px-8 flex flex-col gap-4 max-w-[420px] lg:max-w-none">
         <div class="font-black text-3xl uppercase">
           {{ token.name }}
         </div>
@@ -39,10 +39,10 @@ const token = props.metadata.find(token => getTokenId(token.name) === parseFloat
         </div>
         <div class="grid grid-cols-2 gap-2 mt-auto">
           <div v-for="(trait, i) in token.attributes" :key="i" class="max-w-[300px] bg-purple-500 py-2 px-4">
-            <div class="uppercase font-black text-purple-100">
+            <div class="uppercase font-black text-purple-100 text-[2vw] sm:text-sm">
               {{ trait.trait_type }}
             </div>
-            <div class="uppercase tracking-tighter">
+            <div class="uppercase tracking-tighter text-[2.5vw] sm:text-base">
               {{ trait.value }}
             </div>
           </div>

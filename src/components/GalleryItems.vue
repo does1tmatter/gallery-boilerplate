@@ -1,18 +1,22 @@
 <script setup>
 import { computed } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
-import { useUtils } from '@/composables/'
+import { useUtils, useLightbox } from '@/composables/'
 
 const props = defineProps(['data'])
 
 const { getTokenId } = useUtils()
+const { showBox } = useLightbox()
+
 const route = useRoute()
 
 const getImageUrl = (id) => {
     return new URL(`../assets/img/jpeg/${id}.jpg`, import.meta.url).href
 }
 
-const baseURL = route.path === '/' ? '' : route.path
+const test = import.meta.env.BASE_URL
+
+const baseURL = computed(() => route.path === '/' ? '' : showBox.value ? '' : route.path)
 
 </script>
 

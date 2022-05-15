@@ -26,8 +26,8 @@ const { isAuthenticated, userLoading, connectUser, user } = useUser()
           </Transition>
           <Transition name="fadeout">
             <button
-              v-if="!isAuthenticated"
-              :disabled="userLoading || !user.isNetwork || !isMetaMaskInstalled"
+              v-if="!isAuthenticated && isMetaMaskInstalled"
+              :disabled="userLoading || !user.isNetwork"
               @click="connectUser"
               class="disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-purple-100 bg-purple-200 rounded-lg py-[5px] px-[10px] hover:bg-purple-200"
             >
