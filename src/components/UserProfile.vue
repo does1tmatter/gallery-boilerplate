@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { useUser, useUtils } from '@/composables/'
+import { RouterLink } from 'vue-router'
 
 const { isMetaMaskInstalled } = useUtils()
 const { isAuthenticated, userLoading, user } = useUser()
@@ -40,16 +41,23 @@ const toggleUserData = (e) => {
       </div>
     </div>
     <Transition name="slide-profile">
-      <div v-if="openUserData && isAuthenticated" class="z-50 absolute w-full mt-2 bg-purple-500 p-2 rounded-md text-[10px] sm:text-[11px] uppercase leading-none flex justify-between whitespace-nowrap">
+      <div v-if="openUserData && isAuthenticated" class="z-50 absolute w-full mt-2 bg-purple-500 rounded-md text-[10px] sm:text-[11px] uppercase leading-none overflow-hidden">
         <div class="absolute -top-1 w-0 h-0 border-b-[5px] border-x-[5px] border-b-purple-500 border-x-transparent">
         </div>
-        <div class="text-white">
-          <div>balance:</div>
-          <div class="mt-2">owned:</div>
+        <div class="flex justify-between whitespace-nowrap p-2">
+          <div class="text-white">
+            <div>balance:</div>
+            <div class="mt-2">owned:</div>
+          </div>
+          <div class="text-sunflower text-right text-white">
+            <div>{{ user.balance }} eth</div>
+            <div class="mt-2">{{ user.ownedBalance }} LM</div>
+          </div>
         </div>
-        <div class="text-sunflower text-right text-white">
-          <div>{{ user.balance }} eth</div>
-          <div class="mt-2">{{ user.ownedBalance }} LM</div>
+        <div class="text-center mt-2 py-1 bg-purple-700">
+          <RouterLink to="/profile" @click="toggleUserData">
+            My Tokens
+          </RouterLink>
         </div>
       </div>
     </Transition>
