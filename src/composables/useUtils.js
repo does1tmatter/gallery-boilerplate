@@ -54,6 +54,15 @@ export const useUtils = () => {
     return tempObj
   }
 
+  const filterData = (_metadata, _filters) => {
+    const filterById = (token) => _filters.id ? Number(_filters.id) === getTokenId(token.name) : true
+    const filterByTraits = (token) => Object.entries(_filters).filter(([ key, value ]) => value?.length).map(([key, value]) => key).every(key => _filters[key].includes(token.attributes?.find(attribute => attribute.trait_type === key)?.value))
+    return _metadata
+            .filter(filterById)
+            .filter(filterByTraits)
+            .sort((a, b) => getTokenId(a.name) + getTokenId(b.name))
+  }
+
   return {
     paginate,
     fixURL,
@@ -63,6 +72,7 @@ export const useUtils = () => {
     randomNumber,
     getTokenId,
     generateFilters,
-    createFilterObject
+    createFilterObject,
+    filterData
   }
 }

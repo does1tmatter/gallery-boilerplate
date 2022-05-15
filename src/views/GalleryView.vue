@@ -1,7 +1,7 @@
 <script setup>
 import { useUtils, useLightbox } from '@/composables/'
-import { onMounted, ref, computed, watch } from 'vue'
-import { useInfiniteScroll, TransitionPresets, useTransition, useScroll } from '@vueuse/core'
+import { onMounted, ref, computed } from 'vue'
+import { useInfiniteScroll, TransitionPresets, useTransition } from '@vueuse/core'
 import { RouterLink } from 'vue-router'
 import meta from '@/assets/meta.json'
 
@@ -9,7 +9,7 @@ const metadata = ref([...meta])
 const contract = import.meta.env.VITE_CONTRACT_ADDRESS
 
 const { Lightbox, showBox, openBox, closeBox, checkModal } = useLightbox()
-const { paginate, fixURL, getTokenId, generateFilters, createFilterObject } = useUtils()
+const { paginate, fixURL, getTokenId, generateFilters, createFilterObject, filterData } = useUtils()
 const traitList = generateFilters([...meta])
 
 const filters = createFilterObject(traitList)
@@ -29,9 +29,6 @@ useInfiniteScroll(el, () => {
     if (searchArray.value.length) handleData(searchArray.value)
     if (!searchArray.value.length) handleData()
 })
-
-const { y } = useScroll(window)
-
 
 const toggle = (key, trait) => {
   setTimeout(() => {
@@ -54,15 +51,6 @@ const resetAllFilters = () => {
         }
     })
     filters.id = null
-}
-
-const filterData = (_metadata, _filters) => {
-    const filterById = (token) => _filters.id ? Number(_filters.id) === getTokenId(token.name) : true
-    const filterByTraits = (token) => Object.entries(_filters).filter(([ key, value ]) => value?.length).map(([key, value]) => key).every(key => _filters[key].includes(token.attributes?.find(attribute => attribute.trait_type === key)?.value))
-    return _metadata
-            .filter(filterById)
-            .filter(filterByTraits)
-            .sort((a, b) => getTokenId(a.name) + getTokenId(b.name))
 }
 
 const search = () => {
@@ -97,8 +85,6 @@ const resultSize = useTransition(computedSize, {
   duration: 1000,
   transition: TransitionPresets.easeOutQuart,
 })
-
-const isScrolled = computed(() => Boolean(y.value))
 
 const isLoaded = computed(() => Boolean(data.value.length))
 
@@ -168,7 +154,7 @@ onMounted(() => {
             </div>
         </Transition>
     </div>
-    <Transition name="slide-profile">
+    <Transition name="slide-modal">
         <Lightbox v-if="showBox" @hide-lightbox="closeBox" />
     </Transition>
 </template>

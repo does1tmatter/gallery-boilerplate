@@ -16,7 +16,7 @@ export function useLightbox () {
     if (route.params.token) router.push({ path: '/' })
   }
 
-  const checkModal = () => route.params.token ? openBox() : ''
+  const checkModal = () => route.params.token ? openBox() : closeBox()
 
   watch(() => route.params.token, () => checkModal())
 
