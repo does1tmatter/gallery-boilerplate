@@ -1,13 +1,14 @@
 <script setup>
-import { useUtils } from '@/composables/'
-import { onMounted, ref, computed } from 'vue'
-import { useScroll } from '@vueuse/core'
-import { useInfiniteScroll, TransitionPresets, useTransition } from '@vueuse/core'
+import { useUtils, useLightbox } from '@/composables/'
+import { onMounted, ref, computed, watch } from 'vue'
+import { useInfiniteScroll, TransitionPresets, useTransition, useScroll } from '@vueuse/core'
+import { RouterLink } from 'vue-router'
 import meta from '@/assets/meta.json'
 
 const metadata = ref([...meta])
 const contract = import.meta.env.VITE_CONTRACT_ADDRESS
 
+const { Lightbox, showBox, openBox, closeBox, checkModal } = useLightbox()
 const { paginate, fixURL, getTokenId, generateFilters, createFilterObject } = useUtils()
 const traitList = generateFilters([...meta])
 
@@ -102,6 +103,7 @@ const isScrolled = computed(() => Boolean(y.value))
 const isLoaded = computed(() => Boolean(data.value.length))
 
 onMounted(() => {
+    checkModal()
     handleData()
 })
 </script>
@@ -158,13 +160,15 @@ onMounted(() => {
         </div> -->
         <Transition name="galleryAnim">
             <div v-if="!isLoaded" class="lg:pl-[344px] text-center">Loading</div>
-            <div v-else-if="isLoaded" class="text-center flex-1 lg:pl-[344px] grid max-w-[500px] sm:max-w-none mx-auto sm:mx-0 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 px-6">
-                <div v-for="(item, i) in data" :key="i">
-                    <div class="uppercase tracking-tighter border-[3px] border-purple-900 hover:border-purple-200 transition-all duration-500 rounded-xl overflow-hidden">
-                        <img :src="getImageUrl(getTokenId(item.name))" :alt="item.name">
-                    </div>
-                </div>
+            <div v-else-if="isLoaded" id="gallery" class="text-center flex-1 lg:pl-[344px] grid max-w-[500px] sm:max-w-none mx-auto sm:mx-0 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 px-6">
+                <RouterLink v-for="(item, i) in data" :key="i" :to="`/${getTokenId(item.name)}`" class="relative uppercase tracking-tighter border-[3px] border-purple-900 hover:border-purple-200 transition-all duration-500 rounded-xl overflow-hidden">
+                    <img :src="getImageUrl(getTokenId(item.name))" :alt="item.name">
+                    <div class="text-center w-full bg-purple-600 text-[12px]">{{ item.name }}</div>
+                </RouterLink>
             </div>
         </Transition>
     </div>
+    <Transition name="slide-profile">
+        <Lightbox v-if="showBox" @hide-lightbox="closeBox" />
+    </Transition>
 </template>
