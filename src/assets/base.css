@@ -47,7 +47,40 @@ html {
   transition: all 0.5s ease-in-out;
 }
 
-.fadeout-enter-from,
-.fadeout-leave-to {
+
+.galleryAnim-enter-from,
+.galleryAnim-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.galleryAnim-enter-active,
+.galleryAnim-leave-active {
+  transition: all 0.5s ease-in-out;
+}
+
+.galleryAnim-enter-active {
+  transition-delay: 500ms;
+}
+
+.galleryAnim-enter-from,
+.galleryAnim-leave-to {
+  opacity: 0;
+}
+
+
+.resetButton-enter-from,
+.resetButton-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.resetButton-enter-active,
+.resetButton-leave-active {
+  transition: all 0.5s ease-in-out;
+}
+
+.resetButton-enter-from,
+.resetButton-leave-to {
   opacity: 0;
 }

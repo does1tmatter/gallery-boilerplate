@@ -10,8 +10,8 @@ const { isAuthenticated, userLoading, connectUser, user } = useUser()
 </script>
 
 <template>
-  <header class="hidden md:block py-8 transition-all bg-opacity-10 fixed top-0 left-0 w-full z-40 px-4 lg:px-16">
-    <div class="max-w-[1920px] mx-auto flex justify-between items-center">
+  <header class="hidden md:block py-8 transition-all bg-opacity-10 fixed top-0 left-0 w-full z-40">
+    <div class="max-w-[1920px] mx-auto flex justify-between items-center px-4">
       <div class="cursor-pointer flex gap-6 font-bold uppercase divide-x divide-dashed divide-purple-300/[.3]">
         <RouterLink to="/" class="border-b border-transparent hover:border-purple-300 transition-all py-3 px-4 rounded-md">LM</RouterLink>
       </div>
