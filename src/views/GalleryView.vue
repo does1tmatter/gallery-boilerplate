@@ -47,8 +47,6 @@ const toggle = (key, trait) => {
 
 const resetAllFilters = () => {
   for (const key in filters) {
-    // if (key !== "id") filters[key] = []
-    // if (key === "id") filters[key] = null
     key !== 'id' ? filters[key] = [] : filters[key] = null
   }
   selected.value = []
@@ -170,7 +168,7 @@ onMounted(() => {
         <div
           class="text-center grid max-w-[500px] sm:max-w-none mx-auto sm:mx-0 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 px-6 pb-4"
         >
-          <GalleryItems :data="data" />
+          <GalleryItems :data="data" :url="''" />
         </div>
         <button v-if="hasMore" class="bg-purple-500 w-[50%] mb-4 text-xs py-1" @click="loadMore">
           Load more

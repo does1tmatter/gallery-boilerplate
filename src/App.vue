@@ -10,8 +10,8 @@ import 'aos/dist/aos.css'
 
 const toast = useToast()
 const { connectProvider, provider } = useWallet()
-const { isMetaMaskInstalled, sliceAddress } = useUtils()
-const { loadConnectedUser, detectChain, setChain, isNetwork, resetUser, isAuthenticated, user, connectUser, userLoading } = useUser()
+const { isMetaMaskInstalled } = useUtils()
+const { loadConnectedUser, detectChain, setChain, resetUser, isAuthenticated, user } = useUser()
 
 const { Lightbox, showBox, closeBox, checkModal } = useLightbox()
 
@@ -27,7 +27,7 @@ const setListeners = (bool) => {
 const onAccountChanged = () => {
   resetUser()
   detectChain().then(() => {
-    if (isNetwork.value) { 
+    if (user.isNetwork) { 
       loadConnectedUser()
     }
   })
@@ -44,7 +44,6 @@ const onChainChanged = (_chain) => {
 }
 
 onMounted(() => {
-  checkModal()
   AOS.init()
   if (isMetaMaskInstalled.value) {
     connectProvider(window.ethereum)
@@ -56,7 +55,6 @@ onMounted(() => {
     })
     setListeners(true)
   } else {
-    toast.error('Non Ethereum Browser.')
     console.error('Non Ethereum Browser. Please install metamask. https://metamask.io/download/')
   }
 })

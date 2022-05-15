@@ -3,7 +3,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { createSharedComposable } from '@vueuse/core'
 import Lightbox from '@/components/Lightbox.vue'
 
-export const useLightbox = createSharedComposable(() => {
+export const useLightbox = () => {
 
   const route = useRoute()
   const router = useRouter()
@@ -28,4 +28,4 @@ export const useLightbox = createSharedComposable(() => {
     closeBox,
     checkModal
   }
-}) 
+}

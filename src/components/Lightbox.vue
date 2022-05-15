@@ -7,14 +7,13 @@ const contract = import.meta.env.VITE_CONTRACT_ADDRESS
 
 const { getTokenId, fixURL } = useUtils()
 
-const hide = () => $emit('hide-lightbox', false)
 const route = useRoute()
 
 const token = props.metadata.find(token => getTokenId(token.name) === parseFloat(route.params.token))
 </script>
 
 <template>
-  <div class="fixed top-0 left-0 z-50 w-screen h-screen bg-black bg-opacity-60 backdrop-blur-md flex justify-center items-center p-8 lg:p-0" @click.self="$emit('hide-lightbox', false)">
+  <div class="fixed top-0 left-0 z-50 w-screen h-screen bg-black bg-opacity-60 backdrop-blur-md flex justify-center items-center p-8 lg:p-0" @click.self="$emit('hide-lightbox')">
     <div class="bg-purple-700 rounded-2xl overflow-hidden lg:flex 2xl:max-w-[90vw] max-h-[90vh] scrollbar-lightbox">
       <div class="h-full lg:min-h-[420px] lg:min-w-[420px] lg:max-h-[420px] w-full max-w-[420px] lg:max-w-[420px]">
         <img :src="fixURL(token.image)" />
