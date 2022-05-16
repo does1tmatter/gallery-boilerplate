@@ -1,5 +1,6 @@
 import { computed, reactive, ref } from 'vue'
 import { ethers } from 'ethers'
+import Moralis from "moralis/dist/moralis.min.js"
 
 export const useUtils = () => {
 
@@ -66,6 +67,11 @@ export const useUtils = () => {
             .sort((a, b) => getTokenId(a.name) + getTokenId(b.name))
   }
 
+  const getUserNFT = async (_address) => await Moralis.Web3API.account.getNFTsForContract({ chain: import.meta.env.VITE_NETWORK_ID, address: _address, token_address: import.meta.env.VITE_CONTRACT_ADDRESS })
+
+  const getToken = async (_token) => await Moralis.Web3API.token.getTokenIdMetadata({ chain: import.meta.env.VITE_NETWORK_ID, token_id: _token, address: import.meta.env.VITE_CONTRACT_ADDRESS })
+
+
   return {
     paginate,
     fixURL,
@@ -76,6 +82,8 @@ export const useUtils = () => {
     getTokenId,
     generateFilters,
     createFilterObject,
-    filterData
+    filterData,
+    getUserNFT,
+    getToken
   }
 }

@@ -1,8 +1,7 @@
-import { ref, reactive, inject, computed } from "vue"
+import { ref, reactive, computed } from "vue"
 import { useUtils, useWallet } from "@/composables/"
 import { createSharedComposable } from "@vueuse/core"
 import { useToast } from "vue-toastification"
-import Moralis from "moralis/dist/moralis.min.js"
 
 export const useUser = createSharedComposable(() => {
   const {
@@ -11,9 +10,9 @@ export const useUser = createSharedComposable(() => {
     lookupAddress,
     getCurrentUser,
     requestAccounts,
-    getAvatar,
+    getAvatar
   } = useWallet()
-  const { formatBalance, sliceAddress, fixURL } = useUtils()
+  const { formatBalance, sliceAddress, fixURL, getUserNFT } = useUtils()
   const toast = useToast()
 
   const user = reactive({
@@ -34,8 +33,6 @@ export const useUser = createSharedComposable(() => {
   const isAuthenticated = computed(() => Boolean(user.address))
 
   const setChain = (_chain) => (user.chain = _chain)
-
-  const getUserNFT = async (_address) => await Moralis.Web3API.account.getNFTsForContract({ chain: import.meta.env.VITE_NETWORK_ID, address: _address, token_address: import.meta.env.VITE_CONTRACT_ADDRESS })
 
   const loadUserData = async (accounts) => {
     try {
