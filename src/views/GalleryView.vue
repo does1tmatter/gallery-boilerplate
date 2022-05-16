@@ -15,7 +15,7 @@ const data = ref([])
 const metadata = ref([...meta])
 
 const pageNumber = ref(1)
-const pageSize = ref(40)
+const pageSize = ref(42)
 const handleData = (array = metadata.value) => data.value.push(...paginate(array, pageSize.value, pageNumber.value))
 
 const isLoaded = ref(false)
