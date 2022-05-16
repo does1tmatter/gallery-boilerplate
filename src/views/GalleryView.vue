@@ -15,7 +15,7 @@ const data = ref([])
 const metadata = ref([...meta])
 
 const pageNumber = ref(1)
-const pageSize = ref(25)
+const pageSize = ref(40)
 const handleData = (array = metadata.value) => data.value.push(...paginate(array, pageSize.value, pageNumber.value))
 
 const isLoaded = ref(false)
@@ -166,7 +166,7 @@ onMounted(() => {
       <div v-if="!isLoaded" class="text-center">Loading</div>
       <div v-else-if="isLoaded" class="flex-1 text-center">
         <div
-          class="text-center grid max-w-[500px] sm:max-w-none mx-auto sm:mx-0 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 px-6 pb-4"
+          class="text-center grid max-w-[500px] sm:max-w-none mx-auto sm:mx-0 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-6 px-6 pb-4"
         >
           <GalleryItems :data="data" :url="''" />
         </div>
