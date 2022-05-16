@@ -1,6 +1,6 @@
 <script setup>
 import { useUtils } from "@/composables/"
-import { onMounted, ref, computed } from "vue"
+import { onMounted, ref, computed, watch } from "vue"
 import {
   useInfiniteScroll,
   TransitionPresets,
@@ -35,14 +35,11 @@ const search = () => {
 }
 
 const toggle = (key, trait) => {
-  setTimeout(() => {
-    if (filters[key].includes(trait)) {
-      filters[key].splice(filters[key].indexOf(trait), 1)
-    } else {
-      filters[key].push(trait)
-    }
-    search()
-  }, 10)
+  if (filters[key].includes(trait)) {
+    filters[key].splice(filters[key].indexOf(trait), 1)
+  } else {
+    filters[key].push(trait)
+  }
 }
 
 const resetAllFilters = () => {
@@ -50,13 +47,13 @@ const resetAllFilters = () => {
     key !== 'id' ? filters[key] = [] : filters[key] = null
   }
   selected.value = []
-  search()
 }
 
 const resetId = () => {
   filters.id = null
-  search()
 }
+
+watch(filters, () => search())
 
 const computedSize = computed(() => isFiltering.value ? metadata.value.length : [...meta].length)
 
@@ -104,7 +101,6 @@ onMounted(() => {
               min="1"
               max="10000"
               class="border border-purple-300 rounded-sm py-1 pl-2 text-[12px] bg-transparent appearance-none text-center"
-              @input="search"
             />
           </div>
           <img

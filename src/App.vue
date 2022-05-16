@@ -1,19 +1,17 @@
 <script setup>
 import { onMounted, onUnmounted } from 'vue'
-import { RouterLink, RouterView } from 'vue-router'
-import { useToast } from 'vue-toastification'
+import { RouterView } from 'vue-router'
 import { useWallet, useUser, useUtils, useLightbox } from '@/composables/'
 import Navigation from '@/components/Navigation.vue'
 import meta from '@/assets/meta.json'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
-const toast = useToast()
 const { connectProvider, provider } = useWallet()
 const { isMetaMaskInstalled } = useUtils()
 const { loadConnectedUser, detectChain, setChain, resetUser, isAuthenticated, user } = useUser()
 
-const { Lightbox, showBox, closeBox, checkModal } = useLightbox()
+const { Lightbox, showBox, closeBox } = useLightbox()
 
 const setListeners = (bool) => {
   if (bool) {
