@@ -31,17 +31,7 @@ background: transparent;
   overflow-y: scroll;
 }
 .scrollbar-lightbox::-webkit-scrollbar {
-background: transparent;
-width: 0px;
-}
-.scrollbar-lightbox::-webkit-scrollbar-track {
-background: transparent;
-}
-.scrollbar-lightbox::-webkit-scrollbar-thumb {
-background: #808080;
-}
-.scrollbar-lightbox::-webkit-scrollbar-thumb:hover {
-background: #0f0f0f;
+  display: none;
 }
 
 html {

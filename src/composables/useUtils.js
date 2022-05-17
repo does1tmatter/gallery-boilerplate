@@ -53,7 +53,7 @@ export const useUtils = () => {
 
   const createFilterObject = (list) => {
     const tempObj = reactive({})
-    Object.keys(list).every((key) => (tempObj[key] = []))
+    Object.keys(list).every((key) => tempObj[key] = [])
     tempObj.id = ref(null)
     return tempObj
   }
