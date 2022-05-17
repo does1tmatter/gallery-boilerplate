@@ -13,7 +13,7 @@ const getImageUrl = (id) => {
 </script>
 
 <template>
-  <RouterLink v-for="(item, i) in data" :key="i" :to="`${url}${getTokenId(item.name)}`" class="relative uppercase tracking-tighter hover:scale-[1.03] transition-all duration-500 rounded-xl overflow-hidden">
+  <RouterLink v-for="(item, i) in data" :key="i" :to="`${url}${getTokenId(item.name)}`" class="relative uppercase tracking-tighter hover:scale-[1.03] transition-all rounded-xl overflow-hidden">
       <div data-aos="fade-in">
         <img :src="getImageUrl(getTokenId(item.name))" :alt="item.name">
         <div class="text-center w-full bg-purple-600 text-[12px]">{{ item.name }}</div>
