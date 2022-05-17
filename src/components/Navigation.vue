@@ -12,12 +12,17 @@ const { isAuthenticated, userLoading, connectUser, user } = useUser()
 <template>
   <header class="py-8 transition-all bg-opacity-10 w-full">
     <div class="max-w-[1920px] mx-auto flex justify-between items-center px-4">
-      <div>
-        <RouterLink to="/" class="hover:text-purple-200 transition-all py-3 px-4 rounded-md font-black text-xl uppercase leading-none">
+      <div class="pl-4">
+        <RouterLink to="/" class="hover:text-purple-200 transition-all rounded-md font-black text-3xl uppercase leading-none tracking-tighter">
           MUERTO-VIEWER
         </RouterLink>
-        <div class="text-center text-[10px] leading-none text-purple-100">
-          built by <a href="http://twitter.com/ddoesitmatter" target="_blank" class="hover:text-purple-200 transition-all">angrybud.eth</a>
+        <div class="text-center text-[10px] leading-none text-purple-100 flex justify-between">
+          <div>
+            UNOFFICIAL
+          </div>
+          <div class="uppercase">
+            built by <a href="http://twitter.com/ddoesitmatter" target="_blank" class="hover:text-purple-200 transition-all">angrybud.eth</a>
+          </div>
         </div>
       </div>
       <div class="flex gap-4 items-center">
