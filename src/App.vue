@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, onUnmounted } from 'vue'
 import { RouterView } from 'vue-router'
-import { useWallet, useUser, useUtils, useLightbox } from '@/composables/'
+import { useWallet, useUser, useUtils, useLightbox, useAnimation } from '@/composables/'
 import Navigation from '@/components/Navigation.vue'
 import Background from '@/components/Background.vue'
 import meta from '@/assets/meta.json'
@@ -11,6 +11,7 @@ import 'aos/dist/aos.css'
 const { connectProvider, provider } = useWallet()
 const { isMetaMaskInstalled } = useUtils()
 const { loadConnectedUser, detectChain, setChain, resetUser, isAuthenticated, user } = useUser()
+const { setTimeline, animateFrom, animateTo } = useAnimation()
 
 const { Lightbox, showBox, closeBox } = useLightbox()
 
@@ -71,7 +72,7 @@ onUnmounted(() => {
       wrong network detected. please switch to ethereum mainnet
     </div>
   </Transition>
-  <Background />
+  <Background id="back" />
   <Navigation />
   <RouterView v-slot="{ Component }">
     <Transition name="galleryAnim">

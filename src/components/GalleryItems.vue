@@ -1,22 +1,16 @@
 <script setup>
 import { onMounted } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
-import { useUtils, useAnimation } from '@/composables/'
+import { useUtils } from '@/composables/'
 
 const props = defineProps(['data', 'url'])
 const route = useRoute()
-const { setTimeline, animateFrom, animateTo } = useAnimation()
 
 const { getTokenId } = useUtils()
 
 const getImageUrl = (id) => {
     return new URL(`../assets/img/jpeg/${id}.jpg`, import.meta.url).href
 }
-
-onMounted(() => {
-  setTimeline()
-  animateFrom('.item', { opacity: 0 })
-})
 </script>
 
 <template>

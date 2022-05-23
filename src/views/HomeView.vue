@@ -22,11 +22,12 @@ const images = [
 
 onMounted(() => {
   setTimeline()
-  animateFrom('.col0', { opacity: 0, x: -200 }).delay(1)
+  animateFrom('#back', { scale: 1.05, filter: 'blur(3px)' }).delay(0.5)
+  animateFrom('.col0', { opacity: 0, x: -200 }, '-=1')
   animateFrom('.col1', { opacity: 0, x: -200 }, '-=1')
   animateFrom('.col2', { opacity: 0, x: -200 }, '-=1')
-  animateTo('.img', { rotation: -6, ease: 'power2.out' }, '-=1.5')
   animateFrom('.group', { filter: 'blur(3px)' }, '-=1')
+  animateTo('.img', { rotation: -6, ease: 'power2.out' }, '-=1.5')
   animateTo('.path', { clipPath: 'polygon(0 0, 100% 0%, 100% 100%, 0% 100%)' }, '-=1')
   animateFrom('.path', { filter: 'blur(3px)' }, '-=1.5')
 })
@@ -37,9 +38,10 @@ onMounted(() => {
     <div class="lg:flex lg:justify-center lg:gap-16 xl:gap-32 mt-16 lg:mt-48">
       <div class="flex w-full max-w-[350px] lg:max-w-[460px] gap-4 group mx-auto lg:mx-0">
         <div v-for="(col, i) in images" :key="i" :class="`min-w-[100px] max-w-[100px] lg:min-w-[150px] lg:max-w-[150px] col${i} flex flex-col gap-4`">
-          <RouterLink v-for="(id, indx) in col" :key="indx" :to="`/collection/${id}`">
-            <div :class="`w-full shadow-xl shadow-black/[.15] dark:shadow-purple-500/[.2] img max-w-[100px] lg:max-w-[150px] h-[200px] lg:h-[250px] bg-cover bg-center rounded-xl group-hover:blur-sm group-hover:hover:blur-0 transition-all`" :style="{
-              backgroundImage:  `url('${getImageUrl(id)}')`
+          <RouterLink v-for="(id, indx) in col" :key="indx" :to="`/collection/${id}`" class="group-hover:blur-sm group-hover:hover:blur-0 transition-all">
+            <div :class="`w-full shadow-xl shadow-black/[.15] dark:shadow-purple-500/[.2] img max-w-[100px] lg:max-w-[150px] h-[200px] lg:h-[250px] bg-cover bg-center rounded-xl`" :style="{
+              backgroundImage:  `url('${getImageUrl(id)}')`,
+              backgroundPositionX: '-290px'
             }" />
           </RouterLink>
         </div>
