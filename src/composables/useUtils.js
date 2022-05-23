@@ -25,7 +25,7 @@ export const useUtils = () => {
     return parseFloat(number).toFixed(4)
   }
 
-  const randomNumber = (max) => Math.floor(Math.random() * max) + 1
+  const randomNumber = (min = 1, max) => Math.floor(Math.random() * (max - min + 1)) + min
 
   const getTokenId = (token) => Number(token.match(/\d+/))
 

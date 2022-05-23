@@ -3,14 +3,14 @@ import { computed, ref } from 'vue'
 import { useUser, useUtils } from '@/composables/'
 import { RouterLink } from 'vue-router'
 
-const { isMetaMaskInstalled } = useUtils()
-const { isAuthenticated, userLoading, user } = useUser()
+const { isMetaMaskInstalled, randomNumber } = useUtils()
+const { isAuthenticated, userLoading, user, ownedTokens } = useUser()
 
 const usernameString = computed(() => isMetaMaskInstalled.value ? isAuthenticated.value ? user.username : 'Not connected' : 'No metamask')
 
 const fallbackAvatar = computed(() => `https://avatars.dicebear.com/api/initials/${usernameString.value}.svg`)
 
-const avatarString = computed(() => user.ensAvatar|| fallbackAvatar.value)
+const avatarString = computed(() => user.ensAvatar || fallbackAvatar.value)
 
 const openUserData = ref(false)
 

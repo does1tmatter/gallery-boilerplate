@@ -1,20 +1,27 @@
 <script setup>
-import { computed } from 'vue'
-import { RouterLink } from 'vue-router'
-import { useUtils } from '@/composables/'
+import { onMounted } from 'vue'
+import { RouterLink, useRoute } from 'vue-router'
+import { useUtils, useAnimation } from '@/composables/'
 
 const props = defineProps(['data', 'url'])
+const route = useRoute()
+const { setTimeline, animateFrom, animateTo } = useAnimation()
 
 const { getTokenId } = useUtils()
 
 const getImageUrl = (id) => {
     return new URL(`../assets/img/jpeg/${id}.jpg`, import.meta.url).href
 }
+
+onMounted(() => {
+  setTimeline()
+  animateFrom('.item', { opacity: 0 })
+})
 </script>
 
 <template>
-  <RouterLink v-for="(item, i) in data" :key="i" :to="`${url}${getTokenId(item.name)}`" class="relative uppercase tracking-tighter hover:scale-[1.03] transition-all rounded-xl overflow-hidden">
-      <div data-aos="fade-in">
+  <RouterLink v-for="(item, i) in data" :key="i" :to="`${url}${getTokenId(item.name)}`" class="relative uppercase tracking-tighter hover:scale-[1.03] transition-all rounded-xl overflow-hidden item">
+      <div :data-aos="route.name === 'collection' ? 'fade-in' : ''">
         <img :src="getImageUrl(getTokenId(item.name))" :alt="item.name">
         <div class="text-center w-full bg-purple-600 text-[12px]">{{ item.name }}</div>
       </div>

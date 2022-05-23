@@ -14,8 +14,9 @@ export const useLightbox = () => {
   const openBox = () => showBox.value = true
 
   const closeBox = () => {
-    if (route.params.token) history.state.back ? history.back() : router.push({ path: '/' })
-    setTimeout(() => showBox.value = false, 10)
+    const routeSplit = route.path.split('/')
+    if (route.params.token) history.state.back ? router.push({ path: `/${routeSplit[1]}` }) : router.push({ path: '/collection' })
+    showBox.value = false
   }
 
   const checkModal = () => route.params.token ? parseFloat(route.params.token) <= 10000 ? openBox() : toast.error(`Token ${route.params.token} doesn't exist`) : closeBox()

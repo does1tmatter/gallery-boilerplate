@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Antic&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -37,7 +39,7 @@ background: transparent;
 html {
   overflow-x: hidden;
   scroll-behavior: smooth;
-  @apply font-thin scrollbar lining-nums bg-purple-900 text-white;
+  @apply font-thin scrollbar lining-nums bg-purple-900 text-white font-antic;
 }
 
 .slide-profile-enter-active,

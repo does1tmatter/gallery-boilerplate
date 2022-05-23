@@ -3,6 +3,7 @@ import { onMounted, onUnmounted } from 'vue'
 import { RouterView } from 'vue-router'
 import { useWallet, useUser, useUtils, useLightbox } from '@/composables/'
 import Navigation from '@/components/Navigation.vue'
+import Background from '@/components/Background.vue'
 import meta from '@/assets/meta.json'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
@@ -42,7 +43,7 @@ const onChainChanged = (_chain) => {
 }
 
 onMounted(() => {
-  AOS.init()
+  AOS.init({ once: true })
   if (isMetaMaskInstalled.value) {
     connectProvider(window.ethereum)
     detectChain().then(() => {
@@ -70,6 +71,7 @@ onUnmounted(() => {
       wrong network detected. please switch to ethereum mainnet
     </div>
   </Transition>
+  <Background />
   <Navigation />
   <RouterView v-slot="{ Component }">
     <Transition name="galleryAnim">

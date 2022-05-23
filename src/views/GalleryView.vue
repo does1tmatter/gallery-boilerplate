@@ -8,6 +8,7 @@ import {
 } from "@vueuse/core"
 import meta from "@/assets/meta.json"
 import GalleryItems from "@/components/GalleryItems.vue"
+import AOS from 'aos'
 
 const { paginate, generateFilters, createFilterObject, filterData } = useUtils()
 
@@ -15,7 +16,7 @@ const data = ref([])
 const metadata = ref([...meta])
 
 const pageNumber = ref(1)
-const pageSize = ref(42)
+const pageSize = ref(48)
 const handleData = (array = metadata.value) => data.value.push(...paginate(array, pageSize.value, pageNumber.value))
 
 const isLoaded = ref(false)
@@ -81,13 +82,14 @@ const expand = (event) => {
 onMounted(() => {
   handleData()
   isLoaded.value = true
+  setTimeout(() => AOS.refreshHard(), 500)
 })
 </script>
 
 <template>
   <div class="flex flex-wrap px-4 max-w-[1920px] mx-auto">
     <div
-      class="w-full lg:sticky lg:max-w-xs shrink-0 top-[0px] lg:max-h-screen scrollbar-lightbox"
+      class="w-full lg:sticky lg:max-w-[250px] shrink-0 top-[0px] lg:max-h-screen scrollbar-lightbox"
     >
       <div class="flex justify-between">
         <div class="flex gap-1 pl-4">
@@ -122,13 +124,15 @@ onMounted(() => {
               Reset filters
             </div>
           </Transition>
-          {{ resultSize.toFixed() }} Results
+          <span class="text-purple-100">
+            {{ resultSize.toFixed() }} Results
+          </span>
           <div></div>
         </div>
       </div>
       <div v-for="(traits, key, indx) in traitList" :key="indx" class="mt-2">
         <div
-          class="cursor-pointer uppercase tracking-tighter my-6 px-4 rounded-xl border-b border-purple-500 pb-6"
+          class="cursor-pointer uppercase tracking-tighter mt-6 mb-3 px-4 rounded-xl border-b border-purple-500 pb-6"
           @click="expand"
         >
           {{ key }}
@@ -139,12 +143,12 @@ onMounted(() => {
           />
         </div>
         <div
-          class="w-full px-6 mt-3 max-h-80 h-0 scrollbar transition-all rounded-xl"
+          class="w-full px-6 max-h-80 h-0 scrollbar transition-all rounded-xl"
         >
           <div
             v-for="(trait, i) in traits"
             :key="i"
-            class="flex items-center mt-2 text-[14px]"
+            class="flex items-center mt-1 text-[14px]"
           >
             <input
               v-model="selected[key + '_' + i]"
@@ -162,9 +166,9 @@ onMounted(() => {
       <div v-if="!isLoaded" class="text-center">Loading</div>
       <div v-else-if="isLoaded" class="flex-1 text-center">
         <div
-          class="text-center grid max-w-[500px] sm:max-w-none mx-auto sm:mx-0 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-6 px-6 pb-4"
+          class="text-center grid max-w-[500px] sm:max-w-none mx-auto sm:mx-0 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-6 px-6 pb-4"
         >
-          <GalleryItems :data="data" :url="''" />
+          <GalleryItems :data="data" :url="'/collection/'" />
         </div>
         <button v-if="hasMore" class="bg-purple-500 w-[50%] mb-4 text-xs py-1" @click="loadMore">
           Load more

@@ -5,6 +5,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+        fontFamily: {
+          architect: 'Architects Daughter',
+          antic: 'Antic'
+        },
         colors: {
           purple: {
             50: '#EADDF8',

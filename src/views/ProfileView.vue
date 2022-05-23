@@ -41,7 +41,7 @@ onMounted(() => {
     <Transition name="galleryAnim">
       <div v-if="isAuthenticated">
         <div
-          class="text-5xl uppercase tracking-tighter leading-none font-black text-purple-200"
+          class="text-7xl uppercase tracking-tighter leading-none font-black text-purple-200 font-architect"
         >
           My tokens
         </div>
