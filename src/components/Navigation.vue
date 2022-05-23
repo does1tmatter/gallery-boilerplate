@@ -12,11 +12,7 @@ const { switchNetwork } = useWallet()
 const { isMetaMaskInstalled } = useUtils()
 const { isAuthenticated, userLoading, connectUser, user } = useUser()
 
-const toggleDarkMode = () => {
-  const html = document.documentElement
-  console.log(document.documentElement.classList)
-  html.classList.toggle('dark')
-}
+const toggleDarkMode = () => document.documentElement.classList.toggle('dark')
 
 </script>
 
