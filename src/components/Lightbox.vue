@@ -41,7 +41,7 @@ onMounted(async () => {
           <img :src="fixURL(token.image)" />
         </a>
       </div>
-      <div class="px-4 py-8 lg:px-8 flex flex-col gap-4 max-w-[420px] lg:max-w-none">
+      <div class="px-4 py-8 lg:px-8 flex flex-col gap-4 max-w-[420px] lg:max-w-none lg:min-w-[520px]">
         <div class="font-black text-3xl uppercase">
           {{ token.name }}
         </div>
