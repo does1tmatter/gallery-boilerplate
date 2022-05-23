@@ -94,7 +94,7 @@ onMounted(() => {
       <div class="flex justify-between">
         <div class="flex gap-1 pl-4">
           <div>
-            <div class="uppercase text-[10px] text-purple-100 font-normal">
+            <div class="uppercase text-[10px] dark:text-purple-100 font-normal">
               Filter by ID
             </div>
             <input
@@ -102,7 +102,7 @@ onMounted(() => {
               type="number"
               min="1"
               max="10000"
-              class="border border-purple-300 rounded-sm py-1 pl-2 text-[12px] bg-transparent appearance-none text-center"
+              class="border border-zinc-500 dark:border-purple-300 rounded-sm py-1 pl-2 text-[12px] bg-transparent appearance-none text-center"
             />
           </div>
           <img
@@ -113,18 +113,18 @@ onMounted(() => {
           />
         </div>
         <div
-          class="text-[10px] uppercase -mt-1 text-purple-200 tracking-normal font-normal self-end"
+          class="text-[10px] uppercase -mt-1 text-zinc-200 dark:text-purple-200 tracking-normal font-normal self-end"
         >
           <Transition name="resetButton">
             <div
               v-if="isFiltering"
-              class="cursor-pointer inline bg-purple-500 p-1 rounded-md mr-1"
+              class="cursor-pointer inline bg-zinc-500 dark:bg-purple-500 p-1 rounded-md mr-1"
               @click="resetAllFilters"
             >
               Reset filters
             </div>
           </Transition>
-          <span class="text-purple-100">
+          <span class="text-zinc-500 dark:text-purple-100">
             {{ resultSize.toFixed() }} Results
           </span>
           <div></div>
@@ -132,14 +132,14 @@ onMounted(() => {
       </div>
       <div v-for="(traits, key, indx) in traitList" :key="indx" class="mt-2">
         <div
-          class="cursor-pointer uppercase tracking-tighter mt-6 mb-3 px-4 rounded-xl border-b border-purple-500 pb-6"
+          class="cursor-pointer uppercase tracking-tighter mt-6 mb-3 px-4 rounded-xl border-b border-zinc-500 dark:border-purple-500 pb-6"
           @click="expand"
         >
           {{ key }}
           <img
             src="@/assets/img/arrow.svg"
             alt=""
-            class="w-[24] transition float-right pointer-events-none"
+            class="w-[24] transition float-right pointer-events-none invert dark:invert-0"
           />
         </div>
         <div
@@ -154,7 +154,7 @@ onMounted(() => {
               v-model="selected[key + '_' + i]"
               type="checkbox"
               :id="`${key + i}`"
-              class="appearance-none rounded-md bg-transparent border border-purple-500 p-2 checked:bg-purple-300"
+              class="appearance-none rounded-md bg-transparent border border-zinc-500 dark:border-purple-500 p-2 checked:bg-zinc-600 dark:checked:bg-purple-300"
               @click="toggle(key, trait)"
             />
             <label :for="`${key + i}`" class="ml-2">{{ trait }}</label>
@@ -170,7 +170,7 @@ onMounted(() => {
         >
           <GalleryItems :data="data" :url="'/collection/'" />
         </div>
-        <button v-if="hasMore" class="bg-purple-500 w-[50%] mb-4 text-xs py-1" @click="loadMore">
+        <button v-if="hasMore" class="bg-zinc-500 text-white dark:bg-purple-500 w-[50%] mb-4 text-xs py-1" @click="loadMore">
           Load more
         </button>
       </div>

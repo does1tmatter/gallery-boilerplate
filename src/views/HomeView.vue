@@ -38,23 +38,23 @@ onMounted(() => {
       <div class="flex w-full max-w-[350px] lg:max-w-[460px] gap-4 group mx-auto lg:mx-0">
         <div v-for="(col, i) in images" :key="i" :class="`min-w-[100px] max-w-[100px] lg:min-w-[150px] lg:max-w-[150px] col${i} flex flex-col gap-4`">
           <RouterLink v-for="(id, indx) in col" :key="indx" :to="`/collection/${id}`">
-            <div :class="`w-full img max-w-[100px] lg:max-w-[150px] h-[200px] lg:h-[250px] bg-cover bg-center rounded-xl group-hover:blur-sm group-hover:hover:blur-0 transition-all`" :style="{
+            <div :class="`w-full shadow-xl shadow-black/[.15] dark:shadow-purple-500/[.2] img max-w-[100px] lg:max-w-[150px] h-[200px] lg:h-[250px] bg-cover bg-center rounded-xl group-hover:blur-sm group-hover:hover:blur-0 transition-all`" :style="{
               backgroundImage:  `url('${getImageUrl(id)}')`
             }" />
           </RouterLink>
         </div>
       </div>
       <div class="max-w-[635px] mx-auto lg:mx-0 text-center lg:text-left mt-16 lg:mt-0 path">
-        <div class="font-architect tracking-[-0.04em] text-[9vw] lg:text-[72px] text-purple-300 font-black uppercase">
+        <div class="font-architect tracking-[-0.04em] text-[9vw] lg:text-[72px] text-zinc-500 dark:text-purple-300 font-black uppercase">
           MuertoViewer
         </div>
-        <div class="text-justify text-purple-100 mt-8">
+        <div class="text-justify text-zinc-100 dark:text-purple-100 mt-8">
           <figure>
-            <blockquote class="italic bg-purple-700 p-4">
+            <blockquote class="italic bg-zinc-700 dark:bg-purple-700 p-4">
               <q>Los Muertos World is built to serve its members. We are a highly experienced team with wildly ambitious goals.
                 We are upcoming digital artists, we are web3 nerds, we are community builders. We are Muerto!</q>
             </blockquote>
-            <figcaption class="text-xs text-right italic">
+            <figcaption class="text-xs text-right italic text-zinc-800 dark:text-purple-100">
               — <a href="https://www.los-muertos.io/" target="_blank">www.Los-Muertos.io</a>
             </figcaption>
           </figure>

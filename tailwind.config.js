@@ -1,4 +1,5 @@
 module.exports = {
+  darkMode: 'class',
   content: [
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
@@ -34,6 +35,10 @@ module.exports = {
             800: '#AD0000',
             900: '#7A0000'
           }
+        },
+        backgroundImage: {
+          sun: "url('@/assets/img/sun.svg')",
+          moon: "url('@/assets/img/moon.png')",
         }
       },
   },

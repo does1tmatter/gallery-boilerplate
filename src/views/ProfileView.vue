@@ -41,7 +41,7 @@ onMounted(() => {
     <Transition name="galleryAnim">
       <div v-if="isAuthenticated">
         <div
-          class="text-7xl uppercase tracking-tighter leading-none font-black text-purple-200 font-architect"
+          class="text-7xl uppercase tracking-tighter leading-none font-black text-zinc-500 dark:text-purple-200 font-architect"
         >
           My tokens
         </div>
@@ -53,7 +53,7 @@ onMounted(() => {
           </div>
           <button
             v-if="hasMore"
-            class="bg-purple-500 w-[50%] mb-4 text-xs py-1"
+            class="bg-zinc-500 dark:bg-purple-500 text-white w-[50%] mb-4 text-xs py-1"
             @click="loadMore"
           >
             Load more

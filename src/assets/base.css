@@ -39,7 +39,7 @@ background: transparent;
 html {
   overflow-x: hidden;
   scroll-behavior: smooth;
-  @apply font-thin scrollbar lining-nums bg-purple-900 text-white font-antic;
+  @apply font-thin scrollbar lining-nums font-antic;
 }
 
 .slide-profile-enter-active,

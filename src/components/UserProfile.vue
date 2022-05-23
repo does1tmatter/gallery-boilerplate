@@ -18,27 +18,27 @@ const toggleUserData = (e) => isAuthenticated.value ? openUserData.value = !open
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative text-white">
     <div
       :class="
         isAuthenticated ?
         openUserData ?
-        'bg-purple-900 flex gap-3 items-center border-b border-purple-300 hover:border-purple-300 transition-all py-3 px-4 rounded-md cursor-pointer' :
-        'bg-purple-900 flex gap-3 items-center border-b border-transparent hover:border-purple-300 transition-all py-3 px-4 rounded-md cursor-pointer' :
-        'bg-purple-900 flex gap-3 items-center border-b border-transparent hover:border-purple-300 py-3 px-4 rounded-md pointer-events-none'
+        'bg-zinc-500 dark:bg-purple-900 flex gap-3 items-center border-b border-zinc-300 dark:border-purple-300 hover:bg-zinc-500 dark:hover:border-purple-300 transition-all py-1 px-3 rounded-md cursor-pointer' :
+        'bg-zinc-400 dark:bg-purple-900 flex gap-3 items-center border-b border-transparent hover:bg-zinc-500 dark:hover:border-purple-300 transition-all py-1 px-3 rounded-md cursor-pointer' :
+        'bg-zinc-400 dark:bg-purple-900 flex gap-3 items-center border-b border-transparent hover:bg-zinc-500 dark:hover:border-purple-300 py-1 px-3 rounded-md pointer-events-none'
       "
       @click="toggleUserData"
     >
       <span class="whitespace-nowrap pointer-events-none text-[12px] sm:text-base font-thin">
         {{ userLoading ? 'Loading' : usernameString }}
       </span>
-      <div class="w-[20px] bg-purple-500 rounded-full flex items-center justify-center overflow-hidden pointer-events-none">
+      <div class="w-[20px] bg-zinc-500 dark:bg-purple-500 rounded-full flex items-center justify-center overflow-hidden pointer-events-none">
         <img :src="avatarString" class="opacity-80">
       </div>
     </div>
     <Transition name="slide-profile">
-      <div v-if="openUserData && isAuthenticated" class="z-50 absolute w-full mt-2 bg-purple-500 rounded-md text-[10px] sm:text-[11px] uppercase leading-none">
-        <div class="absolute -top-1 left-2 w-0 h-0 border-b-[5px] border-x-[5px] border-b-purple-500 border-x-transparent">
+      <div v-if="openUserData && isAuthenticated" class="z-50 absolute w-full mt-2 bg-zinc-500 dark:bg-purple-500 rounded-md text-[10px] sm:text-[11px] uppercase leading-none">
+        <div class="absolute -top-1 left-2 w-0 h-0 border-b-[5px] border-x-[5px] border-b-zinc-500 dark:border-b-purple-500 border-x-transparent">
         </div>
         <div class="flex justify-between whitespace-nowrap p-2">
           <div class="text-white">
@@ -51,7 +51,7 @@ const toggleUserData = (e) => isAuthenticated.value ? openUserData.value = !open
           </div>
         </div>
         <RouterLink to="/profile" @click="toggleUserData">
-          <div class="text-center py-1 bg-purple-700 hover:bg-purple-400 transition-all rounded-b-md">
+          <div class="text-center py-1 bg-zinc-700 dark:bg-purple-700 hover:bg-zinc-400 dark:hover:bg-purple-400 transition-all rounded-b-md">
             My Tokens
           </div>
         </RouterLink>
