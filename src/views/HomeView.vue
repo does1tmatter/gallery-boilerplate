@@ -25,7 +25,7 @@ onMounted(() => {
   animateFrom('.col0', { opacity: 0, x: -200 }).delay(1)
   animateFrom('.col1', { opacity: 0, x: -200 }, '-=1')
   animateFrom('.col2', { opacity: 0, x: -200 }, '-=1')
-  animateTo('.img', { rotation: -6, ease: 'power2.out' }, '-=1')
+  animateTo('.img', { rotation: -6, ease: 'power2.out' }, '-=1.5')
   animateFrom('.group', { filter: 'blur(3px)' }, '-=1')
   animateTo('.path', { clipPath: 'polygon(0 0, 100% 0%, 100% 100%, 0% 100%)' }, '-=1')
   animateFrom('.path', { filter: 'blur(3px)' }, '-=1.5')
