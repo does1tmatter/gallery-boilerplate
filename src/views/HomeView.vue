@@ -3,7 +3,6 @@ import { onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useUtils, useAnimation } from '@/composables'
 import MyButton from '@/components/MyButton.vue'
-import BlogPosts from '@/components/BlogPosts.vue'
 
 const { randomNumber } = useUtils()
 const { setTimeline, animateFrom, animateTo } = useAnimation()
@@ -69,7 +68,6 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <BlogPosts />
   </div>
 </template>
 
