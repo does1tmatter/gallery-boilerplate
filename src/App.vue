@@ -71,14 +71,12 @@ onUnmounted(() => {
     </div>
   </Transition>
   <Background id="back" />
-  <div class="flex flex-col min-h-screen">
-    <Navigation class="shrink-0" />
-    <RouterView v-slot="{ Component }">
-      <Transition name="galleryAnim">
-        <component :is="Component" class="flex-1" />
-      </Transition>
-    </RouterView>
-  </div>
+  <Navigation />
+  <RouterView v-slot="{ Component }">
+    <Transition name="galleryAnim">
+      <component :is="Component" />
+    </Transition>
+  </RouterView>
   <Transition name="slide-modal">
       <Lightbox v-if="showBox" @hide-lightbox="closeBox" :metadata="meta" />
   </Transition>
