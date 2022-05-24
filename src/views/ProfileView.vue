@@ -53,7 +53,7 @@ onMounted(() => {
           </div>
           <button
             v-if="hasMore"
-            class="bg-zinc-500 dark:bg-purple-500 text-white w-[50%] mb-4 text-xs py-1"
+            class="bg-zinc-500 dark:bg-purple-500 text-white w-[50%] mt-8 text-xs py-1"
             @click="loadMore"
           >
             Load more

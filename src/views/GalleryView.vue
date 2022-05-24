@@ -169,7 +169,7 @@ onMounted(() => {
         >
           <GalleryItems :data="data" :url="'/collection/'" />
         </div>
-        <button v-if="hasMore" class="bg-zinc-500 text-white dark:bg-purple-500 w-[50%] mb-4 text-xs py-1" @click="loadMore">
+        <button v-if="hasMore" class="bg-zinc-500 text-white dark:bg-purple-500 w-[50%] mt-8 text-xs py-1" @click="loadMore">
           Load more
         </button>
       </div>
