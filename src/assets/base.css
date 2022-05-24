@@ -49,5 +49,5 @@ background: transparent;
 html {
   overflow-x: hidden;
   scroll-behavior: smooth;
-  @apply font-thin scrollbar lining-nums font-antic;
+  @apply font-thin overflow-x-hidden scrollbar lining-nums font-antic;
 }

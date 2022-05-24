@@ -1,5 +1,4 @@
 <script setup>
-import { onMounted } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { useUtils } from '@/composables/'
 

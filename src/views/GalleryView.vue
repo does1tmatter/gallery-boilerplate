@@ -87,9 +87,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-wrap px-4 pb-16 max-w-[1920px] mx-auto">
+  <div class="flex px-4 max-w-[1920px] mx-auto">
     <div
-      class="w-full lg:sticky lg:max-w-[250px] shrink-0 top-[0px] lg:max-h-screen scrollbar-lightbox"
+      class="w-full lg:sticky lg:max-w-[250px] lg:shrink-0 top-0 lg:max-h-screen scrollbar-lightbox"
     >
       <div class="flex justify-between">
         <div class="flex gap-1 pl-4">
@@ -163,7 +163,7 @@ onMounted(() => {
     </div>
     <Transition name="galleryAnim">
       <div v-if="!isLoaded" class="text-center">Loading</div>
-      <div v-else-if="isLoaded" class="flex-1 text-center">
+      <div v-else-if="isLoaded" class="flex-1 text-center pb-8">
         <div
           class="text-center grid max-w-[500px] sm:max-w-none mx-auto sm:mx-0 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-6 px-6 pb-4"
         >
