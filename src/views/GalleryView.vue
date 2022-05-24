@@ -87,7 +87,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-wrap px-4 max-w-[1920px] mx-auto">
+  <div class="flex flex-wrap px-4 pb-16 max-w-[1920px] mx-auto">
     <div
       class="w-full lg:sticky lg:max-w-[250px] shrink-0 top-[0px] lg:max-h-screen scrollbar-lightbox"
     >
