@@ -1,17 +1,15 @@
 <script setup>
 import { onMounted, onUnmounted } from 'vue'
 import { RouterView } from 'vue-router'
-import { useWallet, useUser, useUtils, useLightbox, useAnimation } from '@/composables/'
+import { useWallet, useUser, useUtils, useLightbox } from '@/composables/'
 import Navigation from '@/components/Navigation.vue'
 import Background from '@/components/Background.vue'
 import meta from '@/assets/meta.json'
 import AOS from 'aos'
-import 'aos/dist/aos.css'
 
 const { connectProvider, provider } = useWallet()
 const { isMetaMaskInstalled } = useUtils()
 const { loadConnectedUser, detectChain, setChain, resetUser, isAuthenticated, user } = useUser()
-const { setTimeline, animateFrom, animateTo } = useAnimation()
 
 const { Lightbox, showBox, closeBox } = useLightbox()
 
@@ -68,17 +66,19 @@ onUnmounted(() => {
 
 <template>
   <Transition name="slide-profile">
-    <div v-if="isMetaMaskInstalled && !user.isNetwork" class="fixed top-0 left-0 w-full z-[100] text-center bg-zinc-500 dark:bg-purple-500 text-[10px] uppercase">
+    <div v-if="isMetaMaskInstalled && !user.isNetwork" class="fixed top-0 left-0 w-full z-[100] text-center bg-zinc-500 dark:bg-purple-500 text-white text-[10px] uppercase">
       wrong network detected. please switch to ethereum mainnet
     </div>
   </Transition>
   <Background id="back" />
-  <Navigation />
-  <RouterView v-slot="{ Component }">
-    <Transition name="galleryAnim">
-      <component :is="Component" />
-    </Transition>
-  </RouterView>
+  <div class="flex flex-col min-h-screen">
+    <Navigation class="shrink-0" />
+    <RouterView v-slot="{ Component }">
+      <Transition name="galleryAnim">
+        <component :is="Component" class="flex-1" />
+      </Transition>
+    </RouterView>
+  </div>
   <Transition name="slide-modal">
       <Lightbox v-if="showBox" @hide-lightbox="closeBox" :metadata="meta" />
   </Transition>

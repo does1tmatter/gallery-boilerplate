@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
+import { useDark, useToggle } from '@vueuse/core'
 import { useWallet, useUtils, useUser } from '@/composables/'
 import UserProfile from '@/components/UserProfile.vue'
 import MyButton from '@/components/MyButton.vue'
@@ -12,8 +13,8 @@ const { switchNetwork } = useWallet()
 const { isMetaMaskInstalled } = useUtils()
 const { isAuthenticated, userLoading, connectUser, user } = useUser()
 
-const toggleDarkMode = () => document.documentElement.classList.toggle('dark')
-
+const isDark = useDark()
+const toggleDarkMode = useToggle(isDark)
 </script>
 
 <template>
@@ -58,9 +59,11 @@ const toggleDarkMode = () => document.documentElement.classList.toggle('dark')
           </Transition>
         </div>
         <UserProfile />
-        <button class="w-8 h-8 bg-zinc-400 dark:bg-purple-500 rounded-xl" @click="toggleDarkMode">
-          <img src="@/assets/img/sun.svg" class="hidden dark:block mx-auto">
-          <img src="@/assets/img/moon.svg" class="block dark:hidden mx-auto">
+        <button class="w-8 h-8 bg-zinc-700 dark:bg-purple-500 rounded-xl overflow-hidden" @click="toggleDarkMode()">
+          <Transition name="slide-button">
+            <img v-if="isDark" src="@/assets/img/sun.svg" class="hidden dark:block mx-auto">
+            <img v-else-if="!isDark" src="@/assets/img/moon.svg" class="block dark:hidden mx-auto">
+          </Transition>
         </button>
       </div>
     </div>

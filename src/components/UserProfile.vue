@@ -23,9 +23,9 @@ const toggleUserData = (e) => isAuthenticated.value ? openUserData.value = !open
       :class="
         isAuthenticated ?
         openUserData ?
-        'bg-zinc-500 dark:bg-purple-900 flex gap-3 items-center border-b border-zinc-300 dark:border-purple-300 hover:bg-zinc-500 dark:hover:border-purple-300 transition-all py-1 px-3 rounded-md cursor-pointer' :
-        'bg-zinc-400 dark:bg-purple-900 flex gap-3 items-center border-b border-transparent hover:bg-zinc-500 dark:hover:border-purple-300 transition-all py-1 px-3 rounded-md cursor-pointer' :
-        'bg-zinc-400 dark:bg-purple-900 flex gap-3 items-center border-b border-transparent hover:bg-zinc-500 dark:hover:border-purple-300 py-1 px-3 rounded-md pointer-events-none'
+        'bg-zinc-500 dark:bg-purple-400 flex gap-3 items-center hover:bg-zinc-500 transition-all py-1 px-3 rounded-md cursor-pointer' :
+        'bg-zinc-700 dark:bg-purple-500 flex gap-3 items-center hover:bg-zinc-500 dark:hover:bg-purple-400 transition-all py-1 px-3 rounded-md cursor-pointer' :
+        'bg-zinc-700 dark:bg-purple-500 flex gap-3 items-center hover:bg-zinc-500 dark:hover:bg-purple-400 py-1 px-3 rounded-md pointer-events-none'
       "
       @click="toggleUserData"
     >
@@ -33,7 +33,7 @@ const toggleUserData = (e) => isAuthenticated.value ? openUserData.value = !open
         {{ userLoading ? 'Loading' : usernameString }}
       </span>
       <div class="w-[20px] bg-zinc-500 dark:bg-purple-500 rounded-full flex items-center justify-center overflow-hidden pointer-events-none">
-        <img :src="avatarString" class="opacity-80">
+        <img :src="avatarString">
       </div>
     </div>
     <Transition name="slide-profile">

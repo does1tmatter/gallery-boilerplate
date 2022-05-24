@@ -4,7 +4,9 @@ import router from './router'
 import moralis from './plugins/moralis'
 import Toast from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
+import 'aos/dist/aos.css'
 import './assets/base.css'
+import './assets/transitions.css'
 const app = createApp(App)
 
 app.use(moralis)

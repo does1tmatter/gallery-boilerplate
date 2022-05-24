@@ -2,7 +2,6 @@
 import { onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useUtils, useAnimation } from '@/composables'
-import MyButton from '@/components/MyButton.vue'
 
 const { randomNumber } = useUtils()
 const { setTimeline, animateFrom, animateTo } = useAnimation()
@@ -34,7 +33,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="max-w-[1920px] mx-auto px-4 pb-16">
+  <div class="max-w-[1920px] mx-auto px-4">
     <div class="lg:flex lg:justify-center lg:items-center lg:gap-16 xl:gap-32 mt-16 lg:mt-36">
       <div class="flex w-full max-w-[350px] lg:max-w-[460px] gap-4 group mx-auto lg:mx-0">
         <div v-for="(col, i) in images" :key="i" :class="`min-w-[100px] max-w-[100px] lg:min-w-[150px] lg:max-w-[150px] col${i} flex flex-col gap-4`">
@@ -56,7 +55,7 @@ onMounted(() => {
                 We are upcoming digital artists, we are web3 nerds, we are community builders. We are Muerto!</q>
             </blockquote>
             <figcaption class="text-xs text-right italic text-zinc-800 dark:text-purple-100">
-              — <a href="https://www.los-muertos.io/" target="_blank">www.Los-Muertos.io</a>
+              — <a href="https://www.los-muertos.io/" target="_blank" class="link transition-all">www.Los-Muertos.io</a>
             </figcaption>
           </figure>
           <div class="mt-12 text-center lg:text-right overflow-visible pb-2">
