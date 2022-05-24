@@ -33,7 +33,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="max-w-[1920px] mx-auto px-4">
+  <div class="max-w-[1920px] mx-auto px-4 mb-16">
     <div class="lg:flex lg:justify-center lg:items-center lg:gap-16 xl:gap-32 mt-16 lg:mt-36">
       <div class="flex w-full max-w-[350px] lg:max-w-[460px] gap-4 group mx-auto lg:mx-0">
         <div v-for="(col, i) in images" :key="i" :class="`min-w-[100px] max-w-[100px] lg:min-w-[150px] lg:max-w-[150px] col${i} flex flex-col gap-4`">
