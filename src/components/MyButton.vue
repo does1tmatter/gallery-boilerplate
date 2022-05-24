@@ -3,7 +3,6 @@
     disabled:cursor-not-allowed
     disabled:opacity-60
     text-white
-    dark:text-black
     disabled:hover:bg-zinc-700
     dark:disabled:hover:bg-purple-500
     bg-zinc-700
