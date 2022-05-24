@@ -41,11 +41,11 @@ onMounted(() => {
     <Transition name="galleryAnim">
       <div v-if="isAuthenticated">
         <div
-          class="text-7xl uppercase tracking-tighter leading-none font-black text-zinc-500 dark:text-purple-200 font-architect"
+          class="text-7xl uppercase tracking-tighter leading-none font-black text-black dark:text-purple-300 textshadow font-architect"
         >
           My tokens
         </div>
-        <div v-if="ownedTokens.length" class="text-center mt-8">
+        <div v-if="ownedTokens.length" class="text-center mt-12">
           <div
             class="text-center mt-8 grid max-w-[500px] sm:max-w-none mx-auto sm:mx-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-6 px-6"
           >

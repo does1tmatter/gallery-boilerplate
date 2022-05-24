@@ -35,19 +35,18 @@ onMounted(() => {
 
 <template>
   <div class="max-w-[1920px] mx-auto px-4 pb-16">
-    <div class="lg:flex lg:justify-center lg:gap-16 xl:gap-32 mt-16 lg:mt-48">
+    <div class="lg:flex lg:justify-center lg:items-center lg:gap-16 xl:gap-32 mt-16 lg:mt-36">
       <div class="flex w-full max-w-[350px] lg:max-w-[460px] gap-4 group mx-auto lg:mx-0">
         <div v-for="(col, i) in images" :key="i" :class="`min-w-[100px] max-w-[100px] lg:min-w-[150px] lg:max-w-[150px] col${i} flex flex-col gap-4`">
           <RouterLink v-for="(id, indx) in col" :key="indx" :to="`/collection/${id}`" class="group-hover:blur-sm group-hover:hover:blur-0 transition-all">
-            <div :class="`w-full shadow-xl shadow-black/[.15] dark:shadow-purple-500/[.2] img max-w-[100px] lg:max-w-[150px] h-[200px] lg:h-[250px] bg-cover bg-center rounded-xl`" :style="{
-              backgroundImage:  `url('${getImageUrl(id)}')`,
-              backgroundPositionX: '-290px'
+            <div :class="`w-full shadow-xl shadow-black/[.15] dark:shadow-purple-200/[.05] img max-w-[100px] lg:max-w-[150px] h-[200px] lg:h-[250px] bg-cover bg-center rounded-xl`" :style="{
+              backgroundImage:  `url('${getImageUrl(id)}')`
             }" />
           </RouterLink>
         </div>
       </div>
       <div class="max-w-[635px] mx-auto lg:mx-0 text-center lg:text-left mt-16 lg:mt-0 path">
-        <div class="font-architect tracking-[-0.04em] text-[9vw] lg:text-[72px] text-zinc-500 dark:text-purple-300 font-black uppercase">
+        <div class="font-architect tracking-[-0.04em] text-[9vw] lg:text-[72px] text-black dark:text-purple-300 font-black uppercase textshadow">
           MuertoViewer
         </div>
         <div class="text-justify text-zinc-100 dark:text-purple-100 mt-8">
@@ -60,11 +59,25 @@ onMounted(() => {
               — <a href="https://www.los-muertos.io/" target="_blank">www.Los-Muertos.io</a>
             </figcaption>
           </figure>
-          <div class="mt-12 text-center lg:text-left">
+          <div class="mt-12 text-center lg:text-right overflow-visible pb-2">
             <RouterLink to="/collection">
-              <MyButton>
-                Explore collection
-              </MyButton>
+              <button class="
+                ml-4
+                leading-none
+                font-architect
+                uppercase
+                text-[50px]
+                text-black
+                hover:text-white
+                dark:text-purple-300
+                hover:dark:text-purple-100
+                transition-all
+                textshadow
+                tracking-[-0.1em]
+                font-black
+              ">
+                Explore
+              </button>
             </RouterLink>
           </div>
         </div>

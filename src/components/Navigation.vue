@@ -20,7 +20,7 @@ const toggleDarkMode = () => document.documentElement.classList.toggle('dark')
   <header class="py-8 transition-all bg-opacity-10 w-full">
     <div class="max-w-[1920px] mx-auto flex justify-between items-center px-4">
       <div class="pl-4">
-        <RouterLink to="/" class="text-zinc-500 hover:text-zinc-400 dark:text-purple-300 dark:hover:text-purple-200 transition-all font-black text-[4vw] md:text-3xl uppercase leading-none font-architect tracking-[-0.02em]">
+        <RouterLink to="/" class="text-black textshadow hover:text-white dark:text-purple-300 dark:hover:text-purple-100 transition-all font-black text-[4vw] md:text-3xl uppercase leading-none font-architect tracking-[-0.02em]">
           MUERTOVIEWER
         </RouterLink>
         <div class="text-center text-[10px] leading-none text-zinc-400 dark:text-purple-100 hidden sm:flex justify-between -mt-2">
@@ -28,7 +28,7 @@ const toggleDarkMode = () => document.documentElement.classList.toggle('dark')
             UNOFFICIAL
           </div>
           <div class="uppercase">
-            built by <a href="http://twitter.com/angry1bud" target="_blank" class="hover:text-zinc-100 dark:hover:text-purple-200 transition-all">angrybud.eth</a>
+            built by <a href="http://twitter.com/angry1bud" target="_blank" class="link text-black dark:text-white transition-all">angrybud.eth</a>
           </div>
         </div>
       </div>
