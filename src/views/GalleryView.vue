@@ -163,13 +163,13 @@ onMounted(() => {
     </div>
     <Transition name="galleryAnim">
       <div v-if="!isLoaded" class="text-center">Loading</div>
-      <div v-else-if="isLoaded" class="flex-1 text-center pb-8">
+      <div v-else-if="isLoaded" class="flex-1 text-center pb-2">
         <div
           class="text-center grid max-w-[500px] sm:max-w-none mx-auto sm:mx-0 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-6 px-6 pb-4"
         >
           <GalleryItems :data="data" :url="'/collection/'" />
         </div>
-        <button v-if="hasMore" class="bg-zinc-500 text-white dark:bg-purple-500 w-[50%] mt-8 text-xs py-1" @click="loadMore">
+        <button v-if="hasMore" class="bg-zinc-500 text-white dark:bg-purple-500 w-[50%] mt-4 text-xs py-1" @click="loadMore">
           Load more
         </button>
       </div>

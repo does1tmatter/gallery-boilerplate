@@ -37,7 +37,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="text-center sm:pt-24 pb-16 max-w-[1200px] mx-auto">
+  <div class="text-center sm:pt-24 pb-2 max-w-[1200px] mx-auto">
     <Transition name="galleryAnim">
       <div v-if="isAuthenticated">
         <div
@@ -53,7 +53,7 @@ onMounted(() => {
           </div>
           <button
             v-if="hasMore"
-            class="bg-zinc-500 dark:bg-purple-500 text-white w-[50%] mt-8 text-xs py-1"
+            class="bg-zinc-500 dark:bg-purple-500 text-white w-[50%] mt-4 text-xs py-1"
             @click="loadMore"
           >
             Load more
