@@ -95,7 +95,7 @@ export const useUser = createSharedComposable(() => {
     } catch (error) {
       console.log(error)
       userLoading.value = false
-      userError()
+      toast.error("Failed to log in")
     }
   }
 
@@ -108,18 +108,14 @@ export const useUser = createSharedComposable(() => {
         loadUserData(res).then((data) => {
           setUserData(data)
           userLoading.value = false
-          userSuccess()
+          toast.success('Authenticated')
         })
       )
     } catch (error) {
       userLoading.value = false
-      userError()
+      toast.error("Failed to log in")
     }
   }
-
-  const userSuccess = (string = "Authenticated") => toast.success(string)
-
-  const userError = () => toast.error("Failed to log in")
 
   return {
     userLoading,
